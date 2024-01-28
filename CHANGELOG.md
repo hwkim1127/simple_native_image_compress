@@ -1,3 +1,7 @@
+## 1.0.1+2
+
+* Now panic when wrong image file path is given
+
 ## 1.0.1+1
 
 * Added missing Android Plugin

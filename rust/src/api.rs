@@ -76,7 +76,7 @@ pub fn fit_width(
     max_width: Option<i32>,
     quality: Option<u8>,
 ) -> anyhow::Result<ZeroCopyBuffer<Vec<u8>>> {
-    let img: DynamicImage = image::open(path_str).unwrap();
+    let img = image::open(path_str)?;
     let compress_format = compress_format.unwrap_or(CompressFormat::Jpeg);
     let quality = quality.unwrap_or(80);
 
@@ -96,7 +96,7 @@ pub fn fit_height(
     max_height: Option<i32>,
     quality: Option<u8>,
 ) -> anyhow::Result<ZeroCopyBuffer<Vec<u8>>> {
-    let img: DynamicImage = image::open(path_str).unwrap();
+    let img = image::open(path_str)?;
     let compress_format = compress_format.unwrap_or(CompressFormat::Jpeg);
     let quality = quality.unwrap_or(80);
 
@@ -117,7 +117,7 @@ pub fn contain(
     max_height: Option<i32>,
     quality: Option<u8>,
 ) -> anyhow::Result<ZeroCopyBuffer<Vec<u8>>> {
-    let img: DynamicImage = image::open(path_str).unwrap();
+    let img = image::open(path_str)?;
     let compress_format = compress_format.unwrap_or(CompressFormat::Jpeg);
     let quality = quality.unwrap_or(80);
 
