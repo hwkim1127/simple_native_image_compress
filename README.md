@@ -14,7 +14,7 @@ A simple native image compression library for Flutter written in rust using [flu
 ## Prerequisite
 
 1. Rust
-2. Android NDK
+2. Android NDK for Android
 
 ## Example
 

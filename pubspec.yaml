@@ -1,10 +1,10 @@
 name: simple_native_image_compress
 description: "A simple native image compression library for Flutter that supports Windows and Linux as well"
-version: 1.0.0
+version: 1.0.1
 homepage: https://hyunwookim.net
 
 environment:
-  sdk: '>=3.2.6 <4.0.0'
+  sdk: '>=3.2.5 <4.0.0'
   flutter: '>=3.3.0'
 
 dependencies:
