@@ -74,13 +74,5 @@ try{
 - Jpeg
 - WebP
 
-## Miscellaneous
-
-- May run slow on debug mode, but it is fine with release mode
-
-## TODO
-
-Since I work on this on my spare time, I don't know when the TODO list will be completed.
-
 [1]: <https://github.com/fzyzcjy/flutter_rust_bridge> "flutter rust bridge github"
 [2]: <https://github.com/image-rs/image> "rust image crate github"
