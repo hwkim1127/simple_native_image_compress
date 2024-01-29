@@ -48,8 +48,14 @@
 	<key>NSAppleMusicUsageDescription</key>
 	<string>idk why but for apple you need music usage description for gallery</string>
 	<key>NSCameraUsageDescription</key>
-	<string>requires camera usage description</string>
+	<string>this is camera usage description</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>requires photo library usage</string>
+	<string>this is photo library usage</string>
+	<key>NSAppleMusicUsageDescription</key>
+    <string>idk why but for apple you need music usage description for gallery</string>
+    <key>NSCameraUsageDescription</key>
+    <string>this is camera usage description</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>this is photo library usage</string>
 </dict>
 </plist>

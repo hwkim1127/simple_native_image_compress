@@ -38,6 +38,7 @@ abstract class NativeCompress {
   FlutterRustBridgeTaskConstMeta get kContainConstMeta;
 }
 
+/// Supported image formats
 enum CompressFormat {
   Jpeg,
   WebP,
