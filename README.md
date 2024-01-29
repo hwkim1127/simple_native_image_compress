@@ -20,13 +20,13 @@ A simple native image compression library for Flutter written in rust using [flu
 
 ### Call Library as a Singleton
 ```shell
-final _compress = SimpleNativeImageCompress();
+final compress = SimpleNativeImageCompress();
 ```
 
 ### "contain" will make the image fit into the given max width/height.
 ```shell
 try{
-  final bytes = await _compress.contain(
+  final bytes = await compress.contain(
     filePath: yourFilePath,
     compressFormat: CompressFormat.Jpeg,
     quality: 90,
@@ -41,7 +41,7 @@ try{
 ### "fitWidth" will make the image fit into the given max width.
 ```shell
 try{
-  final bytes = await _compress.fitWidth(
+  final bytes = await compress.fitWidth(
     filePath: yourFilePath,
     compressFormat: CompressFormat.WebP,
     maxWidth: 512,
@@ -54,7 +54,7 @@ try{
 ### "fitHeight" will make the image fit into the given max height.
 ```shell
 try{
-  final bytes = await _compress.fitHeight(
+  final bytes = await compress.fitHeight(
     filePath: yourFilePath,
     compressFormat: CompressFormat.WebP,
     maxHeight: 512,

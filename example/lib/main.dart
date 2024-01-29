@@ -8,7 +8,10 @@ import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:simple_native_image_compress/simple_native_image_compress.dart';
 
+late SimpleNativeImageCompress compress;
+
 void main() {
+  compress = SimpleNativeImageCompress();
   runApp(const MyApp());
 }
 
@@ -21,7 +24,6 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   final _picker = ImagePicker();
-  final _compress = SimpleNativeImageCompress();
 
   Uint8List? _bytes;
 
@@ -39,7 +41,7 @@ class _MyAppState extends State<MyApp> {
       filePath = file.path;
     }
     try {
-      final bytes = await _compress.contain(
+      final bytes = await compress.contain(
         filePath: filePath,
         compressFormat: CompressFormat.Jpeg,
       );

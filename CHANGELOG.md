@@ -1,3 +1,7 @@
+## 1.0.1+5
+
+* Example and README.md updated to show a way to call the library as a singleton.
+
 ## 1.0.1+4
 
 * homepage update just to get pub.dev score
