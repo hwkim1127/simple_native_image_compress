@@ -1,6 +1,7 @@
-## 1.0.1+3
+## 1.0.1+4
 
 * homepage update just to get pub.dev score
+* CHANGELOG.md update
 
 ## 1.0.1+2
 
