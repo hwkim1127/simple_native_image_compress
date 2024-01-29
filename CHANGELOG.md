@@ -1,3 +1,7 @@
+## 1.0.1+3
+
+* homepage update just to get pub.dev score
+
 ## 1.0.1+2
 
 * Now panic when wrong image file path is given
