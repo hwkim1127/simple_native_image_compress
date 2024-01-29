@@ -1,6 +1,7 @@
 ## 1.0.1+2
 
 * Now panic when wrong image file path is given
+* ios info.plist for example updated with permission
 
 ## 1.0.1+1
 

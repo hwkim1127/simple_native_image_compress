@@ -1,6 +1,6 @@
 # simple_native_image_compress
 
-A simple native image compression library for Flutter written in rust using [flutter_rust_bridge][1] and [image][2]
+A simple native image compression library for Flutter written in rust using [flutter_rust_bridge][1] and [image][2] and [cargokit][3]
 
 ## Why?
 
@@ -76,3 +76,4 @@ try{
 
 [1]: <https://github.com/fzyzcjy/flutter_rust_bridge> "flutter rust bridge github"
 [2]: <https://github.com/image-rs/image> "rust image crate github"
+[3]: <https://github.com/irondash/cargokit> "cargokit github"
