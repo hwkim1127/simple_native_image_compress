@@ -1,3 +1,7 @@
+## 1.0.1+6
+
+* podspec description update
+
 ## 1.0.1+5
 
 * Example and README.md updated to show a way to call the library as a singleton.
