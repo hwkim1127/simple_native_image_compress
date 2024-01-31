@@ -1,3 +1,7 @@
+## 1.0.2
+
+* FIX: fixed CR LF problem
+
 ## 1.0.1+6
 
 * podspec description update
