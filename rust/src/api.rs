@@ -1,5 +1,5 @@
 use anyhow::Ok;
-use exif::{self, In, Tag, Exif};
+use exif::{self, Exif, In, Tag};
 use flutter_rust_bridge::ZeroCopyBuffer;
 use image::{
     codecs::{jpeg::JpegEncoder, webp},
@@ -12,38 +12,29 @@ pub enum CompressFormat {
     WebP,
 }
 
-/*  
+/*
     This is required since Flutter Rust Bridge panics...
     https://docs.rs/image/latest/image/imageops/enum.FilterType.html
 */
 #[derive(PartialEq, Eq)]
 pub enum FilterType {
-    /// Nearest Neighbor
-    Nearest,
-
-    /// Linear Filter
-    Triangle,
-
-    /// Cubic Filter
-    CatmullRom,
-
-    /// Gaussian Filter
-    Gaussian,
-
-    /// Lanczos with window 3
-    Lanczos3,
+    Nearest, // Nearest Neighbor
+    Triangle, // Linear Filter
+    CatmullRom, // Cubic Filter
+    Gaussian, // Gaussian Filter
+    Lanczos3, // Lanczos with window 3
 }
 
 fn check_orientation(path_str: &String) -> anyhow::Result<u32> {
     let file = std::fs::File::open(path_str)?;
     let mut buf_reader = std::io::BufReader::new(&file);
     let exif_reader = exif::Reader::new();
-    let exif: Exif = match  exif_reader.read_from_container(&mut buf_reader) {
+    let exif: Exif = match exif_reader.read_from_container(&mut buf_reader) {
         std::result::Result::Ok(exif) => exif,
         std::result::Result::Err(error) => match error {
-                    exif::Error::NotFound(_) | exif::Error::BlankValue(_) => return Ok(1),
-                    _ => return Err(anyhow::anyhow!(error)),
-                }
+            exif::Error::NotFound(_) | exif::Error::BlankValue(_) => return Ok(1),
+            _ => return Err(anyhow::anyhow!(error)),
+        },
     };
 
     let orientation = match exif.get_field(Tag::Orientation, In::PRIMARY) {
@@ -56,41 +47,37 @@ fn check_orientation(path_str: &String) -> anyhow::Result<u32> {
     Ok(orientation)
 }
 
-/* 
-    https://magnushoff.com/articles/jpeg-orientation/ 
+/*
+    https://magnushoff.com/articles/jpeg-orientation/
 */
 fn rotate(orientation: u32, dyn_img: DynamicImage) -> DynamicImage {
     match orientation {
-        2 | 4 => {
-            // filp H
-            return DynamicImage::ImageRgba8(imageops::flip_horizontal(&dyn_img));
-        },
-        3 => {
-            // rotate180
-            return DynamicImage::ImageRgba8(imageops::rotate180(&dyn_img));
-        },
+        // filp Horizontally
+        2 | 4 => return DynamicImage::ImageRgba8(imageops::flip_horizontal(&dyn_img)),
+        // rotate180
+        3 => return DynamicImage::ImageRgba8(imageops::rotate180(&dyn_img)),
+        // rotate 90 & filp Horizontally
         5 => {
-            // rotate 90 & filp H
             let temp_img = DynamicImage::ImageRgba8(imageops::rotate90(&dyn_img));
             return DynamicImage::ImageRgba8(imageops::flip_horizontal(&temp_img));
-        },
-        6 => {
-            // rotate90
-            return DynamicImage::ImageRgba8(imageops::rotate90(&dyn_img));
-        },
+        }
+        // rotate90
+        6 => return DynamicImage::ImageRgba8(imageops::rotate90(&dyn_img)),
+        // filp Horizontally & rotate 270
         7 => {
-            // filp H & rotate 270
             let temp_img = DynamicImage::ImageRgba8(imageops::flip_horizontal(&dyn_img));
-            return DynamicImage::ImageRgba8(imageops::rotate270(&temp_img))
-        },
-        8 => {
-            // rotate 270
-            return DynamicImage::ImageRgba8(imageops::rotate270(&dyn_img))
-        },
+            return DynamicImage::ImageRgba8(imageops::rotate270(&temp_img));
+        }
+        // rotate 270
+        8 => return DynamicImage::ImageRgba8(imageops::rotate270(&dyn_img)),
+        // don't do anything
         _ => return dyn_img,
     }
 }
 
+/* 
+    it's kinda dumb, but flutter rust bridge panics if the enum is not exposed in api.rs
+*/
 fn convert_filter_type(filter_type: FilterType) -> imageops::FilterType {
     match filter_type {
         FilterType::Nearest => imageops::FilterType::Nearest,
