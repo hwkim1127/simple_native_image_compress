@@ -21,7 +21,7 @@ install_cargokit:
 
 generate_bindings:
 	flutter_rust_bridge_codegen \
-	--rust-input native/src/api.rs \
+	--rust-input rust/src/api.rs \
 	--dart-output lib/src/bridge_generated.dart \
 	--dart-decl-output lib/src/bridge_definitions.dart \
 	--c-output ios/Classes/bridge_generated.h \

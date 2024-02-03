@@ -8,8 +8,16 @@ pub extern "C" fn wire_fit_width(
     compress_format: *mut i32,
     max_width: *mut i32,
     quality: *mut u8,
+    sampling_filter: *mut i32,
 ) {
-    wire_fit_width_impl(port_, path_str, compress_format, max_width, quality)
+    wire_fit_width_impl(
+        port_,
+        path_str,
+        compress_format,
+        max_width,
+        quality,
+        sampling_filter,
+    )
 }
 
 #[no_mangle]
@@ -19,8 +27,16 @@ pub extern "C" fn wire_fit_height(
     compress_format: *mut i32,
     max_height: *mut i32,
     quality: *mut u8,
+    sampling_filter: *mut i32,
 ) {
-    wire_fit_height_impl(port_, path_str, compress_format, max_height, quality)
+    wire_fit_height_impl(
+        port_,
+        path_str,
+        compress_format,
+        max_height,
+        quality,
+        sampling_filter,
+    )
 }
 
 #[no_mangle]
@@ -31,6 +47,7 @@ pub extern "C" fn wire_contain(
     max_width: *mut i32,
     max_height: *mut i32,
     quality: *mut u8,
+    sampling_filter: *mut i32,
 ) {
     wire_contain_impl(
         port_,
@@ -39,6 +56,7 @@ pub extern "C" fn wire_contain(
         max_width,
         max_height,
         quality,
+        sampling_filter,
     )
 }
 
@@ -46,6 +64,11 @@ pub extern "C" fn wire_contain(
 
 #[no_mangle]
 pub extern "C" fn new_box_autoadd_compress_format_0(value: i32) -> *mut i32 {
+    support::new_leak_box_ptr(value)
+}
+
+#[no_mangle]
+pub extern "C" fn new_box_autoadd_filter_type_0(value: i32) -> *mut i32 {
     support::new_leak_box_ptr(value)
 }
 
@@ -82,6 +105,12 @@ impl Wire2Api<CompressFormat> for *mut i32 {
     fn wire2api(self) -> CompressFormat {
         let wrap = unsafe { support::box_from_leak_ptr(self) };
         Wire2Api::<CompressFormat>::wire2api(*wrap).into()
+    }
+}
+impl Wire2Api<FilterType> for *mut i32 {
+    fn wire2api(self) -> FilterType {
+        let wrap = unsafe { support::box_from_leak_ptr(self) };
+        Wire2Api::<FilterType>::wire2api(*wrap).into()
     }
 }
 impl Wire2Api<i32> for *mut i32 {

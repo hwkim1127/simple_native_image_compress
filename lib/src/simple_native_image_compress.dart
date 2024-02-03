@@ -19,7 +19,7 @@ class SimpleNativeImageCompress {
           ? DynamicLibrary.executable()
           : DynamicLibrary.open(path);
 
-  late final _api = NativeCompressImpl(_dylib);
+  late final _api = NativeImageCompressImpl(_dylib);
 
   /// "contain" will make the image fit into the given max width/height.
   /// DEFAULT size is 1024px x 1024px
@@ -29,6 +29,7 @@ class SimpleNativeImageCompress {
     int? quality,
     int? maxWidth,
     int? maxHeight,
+    FilterType? samplingFilter,
   }) async {
     return await _api.contain(
       pathStr: filePath,
@@ -36,6 +37,7 @@ class SimpleNativeImageCompress {
       quality: quality,
       maxWidth: maxWidth,
       maxHeight: maxHeight,
+      samplingFilter: samplingFilter,
     );
   }
 
@@ -46,12 +48,14 @@ class SimpleNativeImageCompress {
     CompressFormat? compressFormat,
     int? quality,
     int? maxWidth,
+    FilterType? samplingFilter,
   }) async {
     return await _api.fitWidth(
       pathStr: filePath,
       compressFormat: compressFormat,
       quality: quality,
       maxWidth: maxWidth,
+      samplingFilter: samplingFilter,
     );
   }
 
@@ -62,12 +66,14 @@ class SimpleNativeImageCompress {
     CompressFormat? compressFormat,
     int? quality,
     int? maxHeight,
+    FilterType? samplingFilter,
   }) async {
     return await _api.fitHeight(
       pathStr: filePath,
       compressFormat: compressFormat,
       quality: quality,
       maxHeight: maxHeight,
+      samplingFilter: samplingFilter,
     );
   }
 }

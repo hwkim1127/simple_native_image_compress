@@ -17,33 +17,35 @@ import 'package:uuid/uuid.dart';
 
 import 'dart:ffi' as ffi;
 
-class NativeCompressImpl implements NativeCompress {
-  final NativeCompressPlatform _platform;
-  factory NativeCompressImpl(ExternalLibrary dylib) =>
-      NativeCompressImpl.raw(NativeCompressPlatform(dylib));
+class NativeImageCompressImpl implements NativeImageCompress {
+  final NativeImageCompressPlatform _platform;
+  factory NativeImageCompressImpl(ExternalLibrary dylib) =>
+      NativeImageCompressImpl.raw(NativeImageCompressPlatform(dylib));
 
   /// Only valid on web/WASM platforms.
-  factory NativeCompressImpl.wasm(FutureOr<WasmModule> module) =>
-      NativeCompressImpl(module as ExternalLibrary);
-  NativeCompressImpl.raw(this._platform);
+  factory NativeImageCompressImpl.wasm(FutureOr<WasmModule> module) =>
+      NativeImageCompressImpl(module as ExternalLibrary);
+  NativeImageCompressImpl.raw(this._platform);
   Future<Uint8List> fitWidth(
       {required String pathStr,
       CompressFormat? compressFormat,
       int? maxWidth,
       int? quality,
+      FilterType? samplingFilter,
       dynamic hint}) {
     var arg0 = _platform.api2wire_String(pathStr);
     var arg1 =
         _platform.api2wire_opt_box_autoadd_compress_format(compressFormat);
     var arg2 = _platform.api2wire_opt_box_autoadd_i32(maxWidth);
     var arg3 = _platform.api2wire_opt_box_autoadd_u8(quality);
+    var arg4 = _platform.api2wire_opt_box_autoadd_filter_type(samplingFilter);
     return _platform.executeNormal(FlutterRustBridgeTask(
       callFfi: (port_) =>
-          _platform.inner.wire_fit_width(port_, arg0, arg1, arg2, arg3),
+          _platform.inner.wire_fit_width(port_, arg0, arg1, arg2, arg3, arg4),
       parseSuccessData: _wire2api_ZeroCopyBuffer_Uint8List,
       parseErrorData: _wire2api_FrbAnyhowException,
       constMeta: kFitWidthConstMeta,
-      argValues: [pathStr, compressFormat, maxWidth, quality],
+      argValues: [pathStr, compressFormat, maxWidth, quality, samplingFilter],
       hint: hint,
     ));
   }
@@ -51,7 +53,13 @@ class NativeCompressImpl implements NativeCompress {
   FlutterRustBridgeTaskConstMeta get kFitWidthConstMeta =>
       const FlutterRustBridgeTaskConstMeta(
         debugName: "fit_width",
-        argNames: ["pathStr", "compressFormat", "maxWidth", "quality"],
+        argNames: [
+          "pathStr",
+          "compressFormat",
+          "maxWidth",
+          "quality",
+          "samplingFilter"
+        ],
       );
 
   Future<Uint8List> fitHeight(
@@ -59,19 +67,21 @@ class NativeCompressImpl implements NativeCompress {
       CompressFormat? compressFormat,
       int? maxHeight,
       int? quality,
+      FilterType? samplingFilter,
       dynamic hint}) {
     var arg0 = _platform.api2wire_String(pathStr);
     var arg1 =
         _platform.api2wire_opt_box_autoadd_compress_format(compressFormat);
     var arg2 = _platform.api2wire_opt_box_autoadd_i32(maxHeight);
     var arg3 = _platform.api2wire_opt_box_autoadd_u8(quality);
+    var arg4 = _platform.api2wire_opt_box_autoadd_filter_type(samplingFilter);
     return _platform.executeNormal(FlutterRustBridgeTask(
       callFfi: (port_) =>
-          _platform.inner.wire_fit_height(port_, arg0, arg1, arg2, arg3),
+          _platform.inner.wire_fit_height(port_, arg0, arg1, arg2, arg3, arg4),
       parseSuccessData: _wire2api_ZeroCopyBuffer_Uint8List,
       parseErrorData: _wire2api_FrbAnyhowException,
       constMeta: kFitHeightConstMeta,
-      argValues: [pathStr, compressFormat, maxHeight, quality],
+      argValues: [pathStr, compressFormat, maxHeight, quality, samplingFilter],
       hint: hint,
     ));
   }
@@ -79,7 +89,13 @@ class NativeCompressImpl implements NativeCompress {
   FlutterRustBridgeTaskConstMeta get kFitHeightConstMeta =>
       const FlutterRustBridgeTaskConstMeta(
         debugName: "fit_height",
-        argNames: ["pathStr", "compressFormat", "maxHeight", "quality"],
+        argNames: [
+          "pathStr",
+          "compressFormat",
+          "maxHeight",
+          "quality",
+          "samplingFilter"
+        ],
       );
 
   Future<Uint8List> contain(
@@ -88,6 +104,7 @@ class NativeCompressImpl implements NativeCompress {
       int? maxWidth,
       int? maxHeight,
       int? quality,
+      FilterType? samplingFilter,
       dynamic hint}) {
     var arg0 = _platform.api2wire_String(pathStr);
     var arg1 =
@@ -95,13 +112,21 @@ class NativeCompressImpl implements NativeCompress {
     var arg2 = _platform.api2wire_opt_box_autoadd_i32(maxWidth);
     var arg3 = _platform.api2wire_opt_box_autoadd_i32(maxHeight);
     var arg4 = _platform.api2wire_opt_box_autoadd_u8(quality);
+    var arg5 = _platform.api2wire_opt_box_autoadd_filter_type(samplingFilter);
     return _platform.executeNormal(FlutterRustBridgeTask(
-      callFfi: (port_) =>
-          _platform.inner.wire_contain(port_, arg0, arg1, arg2, arg3, arg4),
+      callFfi: (port_) => _platform.inner
+          .wire_contain(port_, arg0, arg1, arg2, arg3, arg4, arg5),
       parseSuccessData: _wire2api_ZeroCopyBuffer_Uint8List,
       parseErrorData: _wire2api_FrbAnyhowException,
       constMeta: kContainConstMeta,
-      argValues: [pathStr, compressFormat, maxWidth, maxHeight, quality],
+      argValues: [
+        pathStr,
+        compressFormat,
+        maxWidth,
+        maxHeight,
+        quality,
+        samplingFilter
+      ],
       hint: hint,
     ));
   }
@@ -114,7 +139,8 @@ class NativeCompressImpl implements NativeCompress {
           "compressFormat",
           "maxWidth",
           "maxHeight",
-          "quality"
+          "quality",
+          "samplingFilter"
         ],
       );
 
@@ -152,6 +178,11 @@ int api2wire_compress_format(CompressFormat raw) {
 }
 
 @protected
+int api2wire_filter_type(FilterType raw) {
+  return api2wire_i32(raw.index);
+}
+
+@protected
 int api2wire_i32(int raw) {
   return raw;
 }
@@ -163,9 +194,10 @@ int api2wire_u8(int raw) {
 
 // Section: finalizer
 
-class NativeCompressPlatform extends FlutterRustBridgeBase<NativeCompressWire> {
-  NativeCompressPlatform(ffi.DynamicLibrary dylib)
-      : super(NativeCompressWire(dylib));
+class NativeImageCompressPlatform
+    extends FlutterRustBridgeBase<NativeImageCompressWire> {
+  NativeImageCompressPlatform(ffi.DynamicLibrary dylib)
+      : super(NativeImageCompressWire(dylib));
 
 // Section: api2wire
 
@@ -179,6 +211,11 @@ class NativeCompressPlatform extends FlutterRustBridgeBase<NativeCompressWire> {
       CompressFormat raw) {
     return inner
         .new_box_autoadd_compress_format_0(api2wire_compress_format(raw));
+  }
+
+  @protected
+  ffi.Pointer<ffi.Int32> api2wire_box_autoadd_filter_type(FilterType raw) {
+    return inner.new_box_autoadd_filter_type_0(api2wire_filter_type(raw));
   }
 
   @protected
@@ -197,6 +234,11 @@ class NativeCompressPlatform extends FlutterRustBridgeBase<NativeCompressWire> {
     return raw == null
         ? ffi.nullptr
         : api2wire_box_autoadd_compress_format(raw);
+  }
+
+  @protected
+  ffi.Pointer<ffi.Int32> api2wire_opt_box_autoadd_filter_type(FilterType? raw) {
+    return raw == null ? ffi.nullptr : api2wire_box_autoadd_filter_type(raw);
   }
 
   @protected
@@ -228,7 +270,7 @@ class NativeCompressPlatform extends FlutterRustBridgeBase<NativeCompressWire> {
 // ignore_for_file: type=lint
 
 /// generated by flutter_rust_bridge
-class NativeCompressWire implements FlutterRustBridgeWireBase {
+class NativeImageCompressWire implements FlutterRustBridgeWireBase {
   @internal
   late final dartApi = DartApiDl(init_frb_dart_api_dl);
 
@@ -237,11 +279,11 @@ class NativeCompressWire implements FlutterRustBridgeWireBase {
       _lookup;
 
   /// The symbols are looked up in [dynamicLibrary].
-  NativeCompressWire(ffi.DynamicLibrary dynamicLibrary)
+  NativeImageCompressWire(ffi.DynamicLibrary dynamicLibrary)
       : _lookup = dynamicLibrary.lookup;
 
   /// The symbols are looked up with [lookup].
-  NativeCompressWire.fromLookup(
+  NativeImageCompressWire.fromLookup(
       ffi.Pointer<T> Function<T extends ffi.NativeType>(String symbolName)
           lookup)
       : _lookup = lookup;
@@ -322,6 +364,7 @@ class NativeCompressWire implements FlutterRustBridgeWireBase {
     ffi.Pointer<ffi.Int32> compress_format,
     ffi.Pointer<ffi.Int32> max_width,
     ffi.Pointer<ffi.Uint8> quality,
+    ffi.Pointer<ffi.Int32> sampling_filter,
   ) {
     return _wire_fit_width(
       port_,
@@ -329,6 +372,7 @@ class NativeCompressWire implements FlutterRustBridgeWireBase {
       compress_format,
       max_width,
       quality,
+      sampling_filter,
     );
   }
 
@@ -339,10 +383,16 @@ class NativeCompressWire implements FlutterRustBridgeWireBase {
               ffi.Pointer<wire_uint_8_list>,
               ffi.Pointer<ffi.Int32>,
               ffi.Pointer<ffi.Int32>,
-              ffi.Pointer<ffi.Uint8>)>>('wire_fit_width');
+              ffi.Pointer<ffi.Uint8>,
+              ffi.Pointer<ffi.Int32>)>>('wire_fit_width');
   late final _wire_fit_width = _wire_fit_widthPtr.asFunction<
-      void Function(int, ffi.Pointer<wire_uint_8_list>, ffi.Pointer<ffi.Int32>,
-          ffi.Pointer<ffi.Int32>, ffi.Pointer<ffi.Uint8>)>();
+      void Function(
+          int,
+          ffi.Pointer<wire_uint_8_list>,
+          ffi.Pointer<ffi.Int32>,
+          ffi.Pointer<ffi.Int32>,
+          ffi.Pointer<ffi.Uint8>,
+          ffi.Pointer<ffi.Int32>)>();
 
   void wire_fit_height(
     int port_,
@@ -350,6 +400,7 @@ class NativeCompressWire implements FlutterRustBridgeWireBase {
     ffi.Pointer<ffi.Int32> compress_format,
     ffi.Pointer<ffi.Int32> max_height,
     ffi.Pointer<ffi.Uint8> quality,
+    ffi.Pointer<ffi.Int32> sampling_filter,
   ) {
     return _wire_fit_height(
       port_,
@@ -357,6 +408,7 @@ class NativeCompressWire implements FlutterRustBridgeWireBase {
       compress_format,
       max_height,
       quality,
+      sampling_filter,
     );
   }
 
@@ -367,10 +419,16 @@ class NativeCompressWire implements FlutterRustBridgeWireBase {
               ffi.Pointer<wire_uint_8_list>,
               ffi.Pointer<ffi.Int32>,
               ffi.Pointer<ffi.Int32>,
-              ffi.Pointer<ffi.Uint8>)>>('wire_fit_height');
+              ffi.Pointer<ffi.Uint8>,
+              ffi.Pointer<ffi.Int32>)>>('wire_fit_height');
   late final _wire_fit_height = _wire_fit_heightPtr.asFunction<
-      void Function(int, ffi.Pointer<wire_uint_8_list>, ffi.Pointer<ffi.Int32>,
-          ffi.Pointer<ffi.Int32>, ffi.Pointer<ffi.Uint8>)>();
+      void Function(
+          int,
+          ffi.Pointer<wire_uint_8_list>,
+          ffi.Pointer<ffi.Int32>,
+          ffi.Pointer<ffi.Int32>,
+          ffi.Pointer<ffi.Uint8>,
+          ffi.Pointer<ffi.Int32>)>();
 
   void wire_contain(
     int port_,
@@ -379,6 +437,7 @@ class NativeCompressWire implements FlutterRustBridgeWireBase {
     ffi.Pointer<ffi.Int32> max_width,
     ffi.Pointer<ffi.Int32> max_height,
     ffi.Pointer<ffi.Uint8> quality,
+    ffi.Pointer<ffi.Int32> sampling_filter,
   ) {
     return _wire_contain(
       port_,
@@ -387,6 +446,7 @@ class NativeCompressWire implements FlutterRustBridgeWireBase {
       max_width,
       max_height,
       quality,
+      sampling_filter,
     );
   }
 
@@ -398,7 +458,8 @@ class NativeCompressWire implements FlutterRustBridgeWireBase {
               ffi.Pointer<ffi.Int32>,
               ffi.Pointer<ffi.Int32>,
               ffi.Pointer<ffi.Int32>,
-              ffi.Pointer<ffi.Uint8>)>>('wire_contain');
+              ffi.Pointer<ffi.Uint8>,
+              ffi.Pointer<ffi.Int32>)>>('wire_contain');
   late final _wire_contain = _wire_containPtr.asFunction<
       void Function(
           int,
@@ -406,7 +467,8 @@ class NativeCompressWire implements FlutterRustBridgeWireBase {
           ffi.Pointer<ffi.Int32>,
           ffi.Pointer<ffi.Int32>,
           ffi.Pointer<ffi.Int32>,
-          ffi.Pointer<ffi.Uint8>)>();
+          ffi.Pointer<ffi.Uint8>,
+          ffi.Pointer<ffi.Int32>)>();
 
   ffi.Pointer<ffi.Int32> new_box_autoadd_compress_format_0(
     int value,
@@ -422,6 +484,20 @@ class NativeCompressWire implements FlutterRustBridgeWireBase {
   late final _new_box_autoadd_compress_format_0 =
       _new_box_autoadd_compress_format_0Ptr
           .asFunction<ffi.Pointer<ffi.Int32> Function(int)>();
+
+  ffi.Pointer<ffi.Int32> new_box_autoadd_filter_type_0(
+    int value,
+  ) {
+    return _new_box_autoadd_filter_type_0(
+      value,
+    );
+  }
+
+  late final _new_box_autoadd_filter_type_0Ptr =
+      _lookup<ffi.NativeFunction<ffi.Pointer<ffi.Int32> Function(ffi.Int32)>>(
+          'new_box_autoadd_filter_type_0');
+  late final _new_box_autoadd_filter_type_0 = _new_box_autoadd_filter_type_0Ptr
+      .asFunction<ffi.Pointer<ffi.Int32> Function(int)>();
 
   ffi.Pointer<ffi.Int32> new_box_autoadd_i32_0(
     int value,

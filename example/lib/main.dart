@@ -12,7 +12,7 @@ late SimpleNativeImageCompress compress;
 
 void main() {
   compress = SimpleNativeImageCompress();
-  runApp(const MyApp());
+  runApp(const MaterialApp(home: MyApp()));
 }
 
 class MyApp extends StatefulWidget {
@@ -44,12 +44,35 @@ class _MyAppState extends State<MyApp> {
       final bytes = await compress.contain(
         filePath: filePath,
         compressFormat: CompressFormat.Jpeg,
+        samplingFilter: FilterType.Lanczos3,
       );
       setState(() {
         _bytes = bytes;
       });
     } catch (e) {
-      print(e);
+      if (!mounted) return;
+      showDialog<void>(
+        context: context,
+        builder: (_) => AlertDialog(
+          title: const Text(
+            'Error Occured',
+            style: TextStyle(color: Colors.red),
+          ),
+          content: Text(e.toString()),
+          actions: [
+            Center(
+              child: TextButton(
+                style: TextButton.styleFrom(
+                  foregroundColor: Colors.white,
+                  backgroundColor: Colors.blue, // Background Color
+                ),
+                onPressed: Navigator.of(context).pop,
+                child: const Text('Ok'),
+              ),
+            ),
+          ],
+        ),
+      );
     }
   }
 
@@ -73,29 +96,26 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Plugin example app'),
-        ),
-        body: SafeArea(
-          child: Column(
-            children: [
-              const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: _compressImage,
-                child: const Text('Choose an image'),
-              ),
-              const SizedBox(height: 20),
-              Expanded(
-                child: _bytes != null
-                    ? InkWell(
-                        onSecondaryTap: _saveImage,
-                        child: Image.memory(_bytes!))
-                    : Container(),
-              ),
-            ],
-          ),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Plugin example app'),
+      ),
+      body: SafeArea(
+        child: Column(
+          children: [
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: _compressImage,
+              child: const Text('Choose an image'),
+            ),
+            const SizedBox(height: 20),
+            Expanded(
+              child: _bytes != null
+                  ? InkWell(
+                      onSecondaryTap: _saveImage, child: Image.memory(_bytes!))
+                  : Container(),
+            ),
+          ],
         ),
       ),
     );

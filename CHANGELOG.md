@@ -1,3 +1,8 @@
+## 1.1.0
+
+* Now keeps the image orientation when converted
+* Sampling Filter can be set
+
 ## 1.0.2
 
 * FIX: fixed CR LF problem

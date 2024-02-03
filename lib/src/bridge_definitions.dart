@@ -8,12 +8,13 @@ import 'package:meta/meta.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge.dart';
 import 'package:uuid/uuid.dart';
 
-abstract class NativeCompress {
+abstract class NativeImageCompress {
   Future<Uint8List> fitWidth(
       {required String pathStr,
       CompressFormat? compressFormat,
       int? maxWidth,
       int? quality,
+      FilterType? samplingFilter,
       dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kFitWidthConstMeta;
@@ -23,6 +24,7 @@ abstract class NativeCompress {
       CompressFormat? compressFormat,
       int? maxHeight,
       int? quality,
+      FilterType? samplingFilter,
       dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kFitHeightConstMeta;
@@ -33,13 +35,34 @@ abstract class NativeCompress {
       int? maxWidth,
       int? maxHeight,
       int? quality,
+      FilterType? samplingFilter,
       dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kContainConstMeta;
 }
 
-/// Supported image formats
 enum CompressFormat {
   Jpeg,
   WebP,
+}
+
+/*
+  more on filter types
+  https://docs.rs/image/latest/image/imageops/enum.FilterType.html
+*/
+enum FilterType {
+  /// Nearest Neighbor
+  Nearest,
+
+  /// Linear Filter
+  Triangle,
+
+  /// Cubic Filter
+  CatmullRom,
+
+  /// Gaussian Filter
+  Gaussian,
+
+  /// Lanczos with window 3
+  Lanczos3,
 }

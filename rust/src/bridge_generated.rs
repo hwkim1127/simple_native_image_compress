@@ -28,6 +28,7 @@ fn wire_fit_width_impl(
     compress_format: impl Wire2Api<Option<CompressFormat>> + UnwindSafe,
     max_width: impl Wire2Api<Option<i32>> + UnwindSafe,
     quality: impl Wire2Api<Option<u8>> + UnwindSafe,
+    sampling_filter: impl Wire2Api<Option<FilterType>> + UnwindSafe,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap::<_, _, _, ZeroCopyBuffer<Vec<u8>>, _>(
         WrapInfo {
@@ -40,12 +41,14 @@ fn wire_fit_width_impl(
             let api_compress_format = compress_format.wire2api();
             let api_max_width = max_width.wire2api();
             let api_quality = quality.wire2api();
+            let api_sampling_filter = sampling_filter.wire2api();
             move |task_callback| {
                 fit_width(
                     api_path_str,
                     api_compress_format,
                     api_max_width,
                     api_quality,
+                    api_sampling_filter,
                 )
             }
         },
@@ -57,6 +60,7 @@ fn wire_fit_height_impl(
     compress_format: impl Wire2Api<Option<CompressFormat>> + UnwindSafe,
     max_height: impl Wire2Api<Option<i32>> + UnwindSafe,
     quality: impl Wire2Api<Option<u8>> + UnwindSafe,
+    sampling_filter: impl Wire2Api<Option<FilterType>> + UnwindSafe,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap::<_, _, _, ZeroCopyBuffer<Vec<u8>>, _>(
         WrapInfo {
@@ -69,12 +73,14 @@ fn wire_fit_height_impl(
             let api_compress_format = compress_format.wire2api();
             let api_max_height = max_height.wire2api();
             let api_quality = quality.wire2api();
+            let api_sampling_filter = sampling_filter.wire2api();
             move |task_callback| {
                 fit_height(
                     api_path_str,
                     api_compress_format,
                     api_max_height,
                     api_quality,
+                    api_sampling_filter,
                 )
             }
         },
@@ -87,6 +93,7 @@ fn wire_contain_impl(
     max_width: impl Wire2Api<Option<i32>> + UnwindSafe,
     max_height: impl Wire2Api<Option<i32>> + UnwindSafe,
     quality: impl Wire2Api<Option<u8>> + UnwindSafe,
+    sampling_filter: impl Wire2Api<Option<FilterType>> + UnwindSafe,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap::<_, _, _, ZeroCopyBuffer<Vec<u8>>, _>(
         WrapInfo {
@@ -100,6 +107,7 @@ fn wire_contain_impl(
             let api_max_width = max_width.wire2api();
             let api_max_height = max_height.wire2api();
             let api_quality = quality.wire2api();
+            let api_sampling_filter = sampling_filter.wire2api();
             move |task_callback| {
                 contain(
                     api_path_str,
@@ -107,6 +115,7 @@ fn wire_contain_impl(
                     api_max_width,
                     api_max_height,
                     api_quality,
+                    api_sampling_filter,
                 )
             }
         },
@@ -141,6 +150,18 @@ impl Wire2Api<CompressFormat> for i32 {
             0 => CompressFormat::Jpeg,
             1 => CompressFormat::WebP,
             _ => unreachable!("Invalid variant for CompressFormat: {}", self),
+        }
+    }
+}
+impl Wire2Api<FilterType> for i32 {
+    fn wire2api(self) -> FilterType {
+        match self {
+            0 => FilterType::Nearest,
+            1 => FilterType::Triangle,
+            2 => FilterType::CatmullRom,
+            3 => FilterType::Gaussian,
+            4 => FilterType::Lanczos3,
+            _ => unreachable!("Invalid variant for FilterType: {}", self),
         }
     }
 }

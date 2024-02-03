@@ -30,22 +30,27 @@ void wire_fit_width(int64_t port_,
                     struct wire_uint_8_list *path_str,
                     int32_t *compress_format,
                     int32_t *max_width,
-                    uint8_t *quality);
+                    uint8_t *quality,
+                    int32_t *sampling_filter);
 
 void wire_fit_height(int64_t port_,
                      struct wire_uint_8_list *path_str,
                      int32_t *compress_format,
                      int32_t *max_height,
-                     uint8_t *quality);
+                     uint8_t *quality,
+                     int32_t *sampling_filter);
 
 void wire_contain(int64_t port_,
                   struct wire_uint_8_list *path_str,
                   int32_t *compress_format,
                   int32_t *max_width,
                   int32_t *max_height,
-                  uint8_t *quality);
+                  uint8_t *quality,
+                  int32_t *sampling_filter);
 
 int32_t *new_box_autoadd_compress_format_0(int32_t value);
+
+int32_t *new_box_autoadd_filter_type_0(int32_t value);
 
 int32_t *new_box_autoadd_i32_0(int32_t value);
 
@@ -61,6 +66,7 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) wire_fit_height);
     dummy_var ^= ((int64_t) (void*) wire_contain);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_compress_format_0);
+    dummy_var ^= ((int64_t) (void*) new_box_autoadd_filter_type_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_i32_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_u8_0);
     dummy_var ^= ((int64_t) (void*) new_uint_8_list_0);
