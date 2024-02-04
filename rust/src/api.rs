@@ -18,11 +18,26 @@ pub enum CompressFormat {
 */
 #[derive(PartialEq, Eq)]
 pub enum FilterType {
-    Nearest, // Nearest Neighbor
-    Triangle, // Linear Filter
+    Nearest,    // Nearest Neighbor
+    Triangle,   // Linear Filter
     CatmullRom, // Cubic Filter
-    Gaussian, // Gaussian Filter
-    Lanczos3, // Lanczos with window 3
+    Gaussian,   // Gaussian Filter
+    Lanczos3,   // Lanczos with window 3
+}
+
+/*
+    it's kinda dumb, but flutter rust bridge panics if the enum is not exposed in api.rs
+*/
+impl FilterType {
+    pub fn to_imageops(&self) -> imageops::FilterType {
+        match self {
+            FilterType::Nearest => imageops::FilterType::Nearest,
+            FilterType::Triangle => imageops::FilterType::Triangle,
+            FilterType::CatmullRom => imageops::FilterType::CatmullRom,
+            FilterType::Gaussian => imageops::FilterType::Gaussian,
+            FilterType::Lanczos3 => imageops::FilterType::Lanczos3,
+        }
+    }
 }
 
 fn check_orientation(path_str: &String) -> anyhow::Result<u32> {
@@ -75,20 +90,6 @@ fn rotate(orientation: u32, dyn_img: DynamicImage) -> DynamicImage {
     }
 }
 
-/* 
-    it's kinda dumb, but flutter rust bridge panics if the enum is not exposed in api.rs
-*/
-fn convert_filter_type(filter_type: FilterType) -> imageops::FilterType {
-    match filter_type {
-        FilterType::Nearest => imageops::FilterType::Nearest,
-        // FilterType::Triangle => imageops::FilterType::Triangle,
-        FilterType::CatmullRom => imageops::FilterType::CatmullRom,
-        FilterType::Gaussian => imageops::FilterType::Gaussian,
-        FilterType::Lanczos3 => imageops::FilterType::Lanczos3,
-        _ => imageops::FilterType::Triangle,
-    }
-}
-
 fn encode_img_buffer_to_bytes(
     buffer: &image::ImageBuffer<image::Rgba<u8>, Vec<u8>>,
     compress_format: CompressFormat,
@@ -98,10 +99,10 @@ fn encode_img_buffer_to_bytes(
 
     if compress_format == CompressFormat::WebP {
         let encoder = webp::WebPEncoder::new_lossless(&mut bytes);
-        let _res = buffer.write_with_encoder(encoder);
+        buffer.write_with_encoder(encoder)?;
     } else {
         let encoder = JpegEncoder::new_with_quality(&mut bytes, quality);
-        let _res = buffer.write_with_encoder(encoder);
+        buffer.write_with_encoder(encoder)?;
     }
     return Ok(bytes);
 }
@@ -114,10 +115,10 @@ fn encode_dyn_img_to_bytes(
     let mut bytes: Vec<u8> = Vec::new();
     if compress_format == CompressFormat::WebP {
         let encoder = webp::WebPEncoder::new_lossless(&mut bytes);
-        let _res = dyn_img.write_with_encoder(encoder);
+        dyn_img.write_with_encoder(encoder)?;
     } else {
         let encoder = JpegEncoder::new_with_quality(&mut bytes, quality);
-        let _res = dyn_img.write_with_encoder(encoder);
+        dyn_img.write_with_encoder(encoder)?;
     }
     return Ok(bytes);
 }
@@ -139,12 +140,11 @@ fn compress(
             img,
             output_width,
             output_height,
-            convert_filter_type(sampling_filter),
+            sampling_filter.to_imageops(),
         );
         return encode_img_buffer_to_bytes(&img_buf, compress_format, quality);
-    } else {
-        return encode_dyn_img_to_bytes(img, compress_format, quality);
     }
+    return encode_dyn_img_to_bytes(img, compress_format, quality);
 }
 
 pub fn fit_width(
@@ -176,8 +176,8 @@ pub fn fit_width(
         compress_format,
         quality,
         sampling_filter,
-    );
-    Ok(ZeroCopyBuffer(res.unwrap()))
+    )?;
+    return Ok(ZeroCopyBuffer(res));
 }
 
 pub fn fit_height(
@@ -209,8 +209,8 @@ pub fn fit_height(
         compress_format,
         quality,
         sampling_filter,
-    );
-    Ok(ZeroCopyBuffer(res.unwrap()))
+    )?;
+    return Ok(ZeroCopyBuffer(res));
 }
 
 pub fn contain(
@@ -248,6 +248,6 @@ pub fn contain(
         compress_format,
         quality,
         sampling_filter,
-    );
-    Ok(ZeroCopyBuffer(res.unwrap()))
+    )?;
+    return Ok(ZeroCopyBuffer(res));
 }
