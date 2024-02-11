@@ -7,6 +7,7 @@ use image::{
 };
 
 #[derive(PartialEq, Eq)]
+// #[cfg_attr(debug_assertions, derive(Debug))]
 pub enum CompressFormat {
     Jpeg,
     WebP,
@@ -27,20 +28,31 @@ pub enum FilterType {
 
 /*
     it's kinda dumb, but flutter rust bridge panics if the enum is not exposed in api.rs
+    also, impl FilterType panics...
 */
-impl FilterType {
-    pub fn to_imageops(&self) -> imageops::FilterType {
-        match self {
-            FilterType::Nearest => imageops::FilterType::Nearest,
-            FilterType::Triangle => imageops::FilterType::Triangle,
-            FilterType::CatmullRom => imageops::FilterType::CatmullRom,
-            FilterType::Gaussian => imageops::FilterType::Gaussian,
-            FilterType::Lanczos3 => imageops::FilterType::Lanczos3,
-        }
+// impl FilterType {
+//     pub fn to_imageops(&self) -> imageops::FilterType {
+//         match self {
+//             FilterType::Nearest => imageops::FilterType::Nearest,
+//             FilterType::Triangle => imageops::FilterType::Triangle,
+//             FilterType::CatmullRom => imageops::FilterType::CatmullRom,
+//             FilterType::Gaussian => imageops::FilterType::Gaussian,
+//             FilterType::Lanczos3 => imageops::FilterType::Lanczos3,
+//         }
+//     }
+// }
+fn convert_filter_type(filter_type: FilterType) -> imageops::FilterType {
+    match filter_type {
+        FilterType::Nearest => imageops::FilterType::Nearest,
+        // FilterType::Triangle => imageops::FilterType::Triangle,
+        FilterType::CatmullRom => imageops::FilterType::CatmullRom,
+        FilterType::Gaussian => imageops::FilterType::Gaussian,
+        FilterType::Lanczos3 => imageops::FilterType::Lanczos3,
+        _ => imageops::FilterType::Triangle,
     }
 }
 
-fn check_orientation(path_str: &String) -> anyhow::Result<u32> {
+fn check_orientation(path_str: &str) -> anyhow::Result<u32> {
     let file = std::fs::File::open(path_str)?;
     let mut buf_reader = std::io::BufReader::new(&file);
     let exif_reader = exif::Reader::new();
@@ -59,7 +71,7 @@ fn check_orientation(path_str: &String) -> anyhow::Result<u32> {
         },
         None => 1,
     };
-    Ok(orientation)
+    return Ok(orientation)
 }
 
 /*
@@ -140,7 +152,7 @@ fn compress(
             img,
             output_width,
             output_height,
-            sampling_filter.to_imageops(),
+            convert_filter_type(sampling_filter),
         );
         return encode_img_buffer_to_bytes(&img_buf, compress_format, quality);
     }

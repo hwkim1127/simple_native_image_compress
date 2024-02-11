@@ -3,13 +3,12 @@
 
 import 'dart:ffi';
 import 'dart:io';
+import 'dart:typed_data';
 
-import 'package:flutter/foundation.dart';
 import 'bridge_definitions.dart';
 import 'bridge_generated.dart';
 
 class SimpleNativeImageCompress {
-  @protected
   static const base = 'native_image_compress';
 
   final path = Platform.isWindows ? '$base.dll' : 'lib$base.so';

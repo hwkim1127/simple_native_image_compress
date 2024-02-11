@@ -46,23 +46,10 @@ enum CompressFormat {
   WebP,
 }
 
-/*
-  more on filter types
-  https://docs.rs/image/latest/image/imageops/enum.FilterType.html
-*/
 enum FilterType {
-  /// Nearest Neighbor
   Nearest,
-
-  /// Linear Filter
   Triangle,
-
-  /// Cubic Filter
   CatmullRom,
-
-  /// Gaussian Filter
   Gaussian,
-
-  /// Lanczos with window 3
   Lanczos3,
 }
