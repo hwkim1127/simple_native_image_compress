@@ -57,8 +57,8 @@ fn check_orientation(path_str: &str) -> anyhow::Result<u32> {
     let mut buf_reader = std::io::BufReader::new(&file);
     let exif_reader = exif::Reader::new();
     let exif: Exif = match exif_reader.read_from_container(&mut buf_reader) {
-        std::result::Result::Ok(exif) => exif,
-        std::result::Result::Err(error) => match error {
+        Result::Ok(exif) => exif,
+        Result::Err(error) => match error {
             exif::Error::NotFound(_) | exif::Error::BlankValue(_) => return Ok(1),
             _ => return Err(anyhow::anyhow!(error)),
         },
