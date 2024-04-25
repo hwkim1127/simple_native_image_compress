@@ -1,6 +1,7 @@
 ## 1.1.1
 
 * README.md update
+* cargokit update
 
 ## 1.1.0
 
