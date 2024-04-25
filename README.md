@@ -32,11 +32,7 @@ rustup update
 1. Install rust tools for Android
 ```shell
 cargo install cargo-ndk
-	rustup target add \
-    aarch64-linux-android \
-    armv7-linux-androideabi \
-    x86_64-linux-android \
-    i686-linux-android
+rustup target add aarch64-linux-android armv7-linux-androideabi x86_64-linux-android i686-linux-android
 ```
 2. Since `simple_native_image_compress` requires Android NDK, install `Android NDK` via `Android Studio` and add ndkVersion in `android/app/build.gradle`.
 ```groovy
@@ -53,10 +49,7 @@ cargo install cargo-lipo
 ```
 2. If you are targeting iOS
 ```shell
-rustup target add \
-	aarch64-apple-ios \
-	x86_64-apple-ios \
-	aarch64-apple-ios-sim
+rustup target add aarch64-apple-ios x86_64-apple-ios aarch64-apple-ios-sim
 ```
 
 ## Supported Output Formats
