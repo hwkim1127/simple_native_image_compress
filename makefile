@@ -16,8 +16,13 @@ setup_ios:
 	x86_64-apple-ios \
 	aarch64-apple-ios-sim
 
+# From https://matejknopp.com/post/flutter_plugin_in_rust_with_no_prebuilt_binaries/
 install_cargokit:
 	git subtree add --prefix cargokit https://github.com/irondash/cargokit.git main --squash
+
+# Unlike git modules, subtrees actually live in your repository and thus work with pub without any issues.
+update_cargokit:
+	git subtree pull --prefix cargokit https://github.com/irondash/cargokit.git main --squash
 
 generate_bindings:
 	flutter_rust_bridge_codegen \
