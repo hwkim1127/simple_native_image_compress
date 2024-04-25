@@ -31,3 +31,9 @@ generate_bindings:
 	--dart-decl-output lib/src/bridge_definitions.dart \
 	--c-output ios/Classes/bridge_generated.h \
 	--extra-c-output-path macos/Classes/ \
+
+check_plugin:
+	flutter pub publish --dry-run
+
+publish:
+	flutter pub publish
