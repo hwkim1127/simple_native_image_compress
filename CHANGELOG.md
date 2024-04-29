@@ -1,3 +1,7 @@
+## 1.1.1+2
+
+* README.md link fix
+
 ## 1.1.1+1
 
 * README.md update
