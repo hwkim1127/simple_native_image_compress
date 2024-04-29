@@ -128,5 +128,5 @@ try{
 [2]: <https://github.com/image-rs/image> "rust image crate github"
 [3]: <https://github.com/irondash/cargokit> "cargokit github"
 [4]: <https://github.com/kamadak/exif-rs> "exif-rs github"
-[5]: <https://matejknopp.com/post/flutter_plugin_in_rust_with_no_prebuilt_binaries/> "rust install page"
+[5]: <https://www.rust-lang.org/tools/install> "rust install page"
 [6]: <https://docs.rs/image/latest/image/imageops/enum.FilterType.html> "sampling filters page"
