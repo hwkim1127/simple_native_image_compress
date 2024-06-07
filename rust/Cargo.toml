@@ -8,9 +8,9 @@ edition = "2021"
 crate-type = ["cdylib", "staticlib"]
 
 [dependencies]
-anyhow = "1.0.79"
+anyhow = "1.0.86"
 flutter_rust_bridge = { version = "1.82.6", features = ["zero-copy"] }
-image = {version =  "0.24.7", features = ["webp-encoder"]}
+image = "0.25.1"
 kamadak-exif = "0.5.5"
 
 [profile.dev]
