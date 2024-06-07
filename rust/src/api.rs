@@ -130,7 +130,7 @@ fn encode_dyn_img_to_bytes(
         dyn_img.write_with_encoder(encoder)?;
     } else {
         let encoder = JpegEncoder::new_with_quality(&mut bytes, quality);
-        dyn_img.write_with_encoder(encoder)?;
+        dyn_img.to_rgb8().write_with_encoder(encoder)?;
     }
     return Ok(bytes);
 }
