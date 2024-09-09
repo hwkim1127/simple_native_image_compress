@@ -1,3 +1,11 @@
+## 2.0.0
+> Note: This release has breaking changes.
+* **DOCS**: README.md update
+* **FEAT**: bump flutter_rust_bridge to version 2.3.0
+* **BREAKING** **REFACTOR**:
+    - 1. The library should not be called as `singleton`. Just add `await NativeImageCompress.init();` for initialization.
+    - 2. Methods are now static with different class name. Therefore, the methods now should be called with `ImageCompress` class. i.e) `ImageCompress.contain`
+
 ## 1.1.1+2
 
 * README.md link fix

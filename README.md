@@ -69,15 +69,20 @@ rustup target add aarch64-apple-ios x86_64-apple-ios aarch64-apple-ios-sim
 
 ## Example
 
-#### Call Library as a Singleton
+1. Initialize Simple Native Image Compress in main function
 ```shell
-final compress = SimpleNativeImageCompress();
+Future<void> main() async {
+  await NativeImageCompress.init();
+  runApp(const MaterialApp(home: MyApp()));
+}
 ```
+
+2. After initialization call static methods from ImageCompress class
 
 #### "contain" will make the image fit into the given max width/height.
 ```shell
 try{
-  final bytes = await compress.contain(
+  final bytes = await ImageCompress.contain(
     filePath: yourFilePath,
     compressFormat: CompressFormat.Jpeg,
     quality: 90,
@@ -93,7 +98,7 @@ try{
 #### "fitWidth" will make the image fit into the given max width.
 ```shell
 try{
-  final bytes = await compress.fitWidth(
+  final bytes = await ImageCompress.fitWidth(
     filePath: yourFilePath,
     compressFormat: CompressFormat.WebP,
     maxWidth: 512,
@@ -107,7 +112,7 @@ try{
 #### "fitHeight" will make the image fit into the given max height.
 ```shell
 try{
-  final bytes = await compress.fitHeight(
+  final bytes = await ImageCompress.fitHeight(
     filePath: yourFilePath,
     compressFormat: CompressFormat.WebP,
     maxHeight: 512,

@@ -7,17 +7,13 @@ cmake_minimum_required(VERSION 3.10)
 set(PROJECT_NAME "simple_native_image_compress")
 project(${PROJECT_NAME} LANGUAGES CXX)
 
-# Invoke the build for native code shared with the other target platforms.
-# This can be changed to accommodate different builds.
 include("../cargokit/cmake/cargokit.cmake")
-apply_cargokit(${PROJECT_NAME} ../rust native_image_compress "")
+apply_cargokit(${PROJECT_NAME} ../rust simple_native_image_compress "")
 
 # List of absolute paths to libraries that should be bundled with the plugin.
 # This list could contain prebuilt libraries, or libraries created by an
 # external build triggered from this build file.
 set(simple_native_image_compress_bundled_libraries
-  # Defined in ../src/CMakeLists.txt.
-  # This can be changed to accommodate different builds.
   "${${PROJECT_NAME}_cargokit_lib}"
   PARENT_SCOPE
 )

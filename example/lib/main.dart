@@ -8,10 +8,8 @@ import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:simple_native_image_compress/simple_native_image_compress.dart';
 
-late SimpleNativeImageCompress compress;
-
-void main() {
-  compress = SimpleNativeImageCompress();
+Future<void> main() async {
+  await NativeImageCompress.init();
   runApp(const MaterialApp(home: MyApp()));
 }
 
@@ -41,10 +39,10 @@ class _MyAppState extends State<MyApp> {
       filePath = file.path;
     }
     try {
-      final bytes = await compress.contain(
+      final bytes = await ImageCompress.contain(
         filePath: filePath,
-        compressFormat: CompressFormat.Jpeg,
-        samplingFilter: FilterType.Lanczos3,
+        compressFormat: CompressFormat.jpeg,
+        samplingFilter: FilterType.lanczos3,
       );
       setState(() {
         _bytes = bytes;

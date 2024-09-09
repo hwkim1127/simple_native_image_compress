@@ -45,17 +45,5 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
-	<key>NSAppleMusicUsageDescription</key>
-	<string>idk why but for apple you need music usage description for gallery</string>
-	<key>NSCameraUsageDescription</key>
-	<string>this is camera usage description</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>this is photo library usage</string>
-	<key>NSAppleMusicUsageDescription</key>
-    <string>idk why but for apple you need music usage description for gallery</string>
-    <key>NSCameraUsageDescription</key>
-    <string>this is camera usage description</string>
-    <key>NSPhotoLibraryUsageDescription</key>
-    <string>this is photo library usage</string>
 </dict>
 </plist>
