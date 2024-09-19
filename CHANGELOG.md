@@ -1,3 +1,7 @@
+## 2.0.1
+> Note: This release has breaking changes.
+* **DEPENDENCY UPDATE**: `flutter_rust_bridge` 2.3.0 -> 2.4.0
+
 ## 2.0.0
 > Note: This release has breaking changes.
 * **DOCS**: README.md update
