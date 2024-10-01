@@ -7,7 +7,7 @@ edition = "2021"
 crate-type = ["cdylib", "staticlib"]
 
 [dependencies]
-anyhow = "1.0.86"
+anyhow = "1.0.89"
 flutter_rust_bridge = "=2.4.0"
 image = "0.25.2"
 kamadak-exif = "0.5.5"
