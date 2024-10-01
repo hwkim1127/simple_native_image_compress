@@ -1,6 +1,6 @@
 # simple_native_image_compress
 
-A simple native image compression library for Flutter written in rust using [flutter_rust_bridge][1], [image][2], [cargokit][3] and [kamadak-exif][4]
+A simple native image compression library for Flutter written in rust using [flutter_rust_bridge][1], [image][2], [cargokit][3], [kamadak-exif][4] and [anyhow][5]
 
 ## Why?
 
@@ -22,7 +22,7 @@ A simple native image compression library for Flutter written in rust using [flu
 
 ## Setup
 
-1. Follow the instructions [here][5] and install `Rust`
+1. Follow the instructions [here][6] and install `Rust`
 2. If installed already
 ```shell
 rustup update
@@ -65,7 +65,7 @@ rustup target add aarch64-apple-ios x86_64-apple-ios aarch64-apple-ios-sim
   3. CatmullRom, // Cubic Filter
   4. Gaussian, // Gaussian Filter
   5. Lanczos3, // Lanczos with window 3
-- you can read more about sampling filters here [image crate doc][6]
+- you can read more about sampling filters here [image crate doc][7]
 
 ## Example
 
@@ -133,5 +133,6 @@ try{
 [2]: <https://github.com/image-rs/image> "rust image crate github"
 [3]: <https://github.com/irondash/cargokit> "cargokit github"
 [4]: <https://github.com/kamadak/exif-rs> "exif-rs github"
-[5]: <https://www.rust-lang.org/tools/install> "rust install page"
-[6]: <https://docs.rs/image/latest/image/imageops/enum.FilterType.html> "sampling filters page"
+[5]: <https://github.com/dtolnay/anyhow> "Anyhow ¯\_(°ペ)_/¯"
+[6]: <https://www.rust-lang.org/tools/install> "rust install page"
+[7]: <https://docs.rs/image/latest/image/imageops/enum.FilterType.html> "sampling filters page"
