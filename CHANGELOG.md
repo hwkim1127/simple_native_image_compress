@@ -1,3 +1,6 @@
+## 2.0.2
+* **FEAT**: now guesses image file format instead of using file extensions to figure out
+
 ## 2.0.1
 > Note: This release has breaking changes.
 * **DEPENDENCY UPDATE**: `flutter_rust_bridge` 2.3.0 -> 2.4.0

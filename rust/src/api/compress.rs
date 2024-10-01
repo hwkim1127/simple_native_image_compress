@@ -1,5 +1,5 @@
 use flutter_rust_bridge::frb;
-use image::{imageops, DynamicImage, GenericImageView};
+use image::{imageops, DynamicImage, GenericImageView, ImageReader};
 
 use super::constants::{self, CompressFormat};
 use super::{encode, orientation};
@@ -60,7 +60,7 @@ impl ImageCompress {
         sampling_filter: Option<constants::FilterType>,
     ) -> Result<Vec<u8>, anyhow::Error> {
         let orientation = orientation::check(&file_path)?;
-        let mut dyn_img = image::open(file_path)?;
+        let mut dyn_img = ImageReader::open(file_path)?.with_guessed_format()?.decode()?;
         dyn_img = orientation::rotate(orientation, dyn_img);
     
         let compress_format = compress_format.unwrap_or(CompressFormat::Jpeg);
@@ -92,7 +92,7 @@ impl ImageCompress {
         sampling_filter: Option<constants::FilterType>,
     ) -> Result<Vec<u8>, anyhow::Error> {
         let orientation = orientation::check(&file_path)?;
-        let mut dyn_img = image::open(file_path)?;
+        let mut dyn_img = ImageReader::open(file_path)?.with_guessed_format()?.decode()?;
         dyn_img = orientation::rotate(orientation, dyn_img);
     
         let compress_format = compress_format.unwrap_or(CompressFormat::Jpeg);
@@ -126,7 +126,7 @@ impl ImageCompress {
         sampling_filter: Option<constants::FilterType>,
     ) -> Result<Vec<u8>, anyhow::Error>{
         let orientation = orientation::check(&file_path)?;
-        let mut dyn_img = image::open(file_path)?;
+        let mut dyn_img = ImageReader::open(file_path)?.with_guessed_format()?.decode()?;
         dyn_img = orientation::rotate(orientation, dyn_img);
     
         let compress_format = compress_format.unwrap_or(CompressFormat::Jpeg);
