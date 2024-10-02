@@ -1,5 +1,11 @@
-## 2.0.2
+## 2.0.3
 * **FEAT**: now guesses image file format instead of using file extensions to figure out
+
+
+## 2.0.2 - RETRACTED DUE TO CRLF LINE ENDING
+<strike>
+* **FEAT**: now guesses image file format instead of using file extensions to figure out
+</strike>
 
 ## 2.0.1
 > Note: This release has breaking changes.
