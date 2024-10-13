@@ -1,6 +1,8 @@
+## 2.0.4
+* **DEPENDENCY UPDATE**: `flutter_rust_bridge` 2.4.0 -> 2.5.0
+
 ## 2.0.3
 * **FEAT**: now guesses image file format instead of using file extensions to figure out
-
 
 ## 2.0.2 - RETRACTED DUE TO CRLF LINE ENDING
 <strike>
