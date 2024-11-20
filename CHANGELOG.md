@@ -1,3 +1,7 @@
+## 2.1.0
+* Rust 1.60 or later is now required to build
+* **DEPENDENCY UPDATE**: `flutter_rust_bridge` 2.5.0 -> 2.6.0 and other rust dependencies
+
 ## 2.0.4
 * **DEPENDENCY UPDATE**: `flutter_rust_bridge` 2.4.0 -> 2.5.0
 

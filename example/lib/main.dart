@@ -1,10 +1,10 @@
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
-import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:simple_native_image_compress/simple_native_image_compress.dart';
 
@@ -21,6 +21,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  Duration _duration = const Duration();
   final _picker = ImagePicker();
 
   Uint8List? _bytes;
@@ -39,13 +40,17 @@ class _MyAppState extends State<MyApp> {
       filePath = file.path;
     }
     try {
+      final startTime = DateTime.now();
       final bytes = await ImageCompress.contain(
         filePath: filePath,
         compressFormat: CompressFormat.jpeg,
         samplingFilter: FilterType.lanczos3,
+        // withFileExt: true,
       );
+      final endTime = DateTime.now();
       setState(() {
         _bytes = bytes;
+        _duration = endTime.difference(startTime);
       });
     } catch (e) {
       if (!mounted) return;
@@ -107,6 +112,9 @@ class _MyAppState extends State<MyApp> {
               child: const Text('Choose an image'),
             ),
             const SizedBox(height: 20),
+            Text(
+                '(${kDebugMode ? 'DEBUG' : 'RELEASE'}) mode time taken: ${_duration.inMilliseconds} ms'),
+            const SizedBox(height: 10),
             Expanded(
               child: _bytes != null
                   ? InkWell(

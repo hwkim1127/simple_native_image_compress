@@ -9,7 +9,7 @@ pub(crate) fn check(path_str: &str) -> anyhow::Result<u32> {
         Result::Ok(exif) => exif,
         Result::Err(error) => match error {
             exif::Error::NotFound(_) | exif::Error::BlankValue(_) => return Ok(1),
-            _ => return Err(anyhow::anyhow!(error)),
+            _ => return Err(anyhow::anyhow!(error.to_string())),
         },
     };
 
