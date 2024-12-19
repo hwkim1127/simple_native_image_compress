@@ -9,8 +9,9 @@ import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 
 // These functions are ignored because they are not marked as `pub`: `compress`
 
-// Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<ImageCompress>>
-abstract class ImageCompress implements RustOpaqueInterface {
+class ImageCompress {
+  const ImageCompress();
+
   static Future<Uint8List> contain(
           {required String filePath,
           CompressFormat? compressFormat,
@@ -57,4 +58,12 @@ abstract class ImageCompress implements RustOpaqueInterface {
           quality: quality,
           samplingFilter: samplingFilter,
           speed: speed);
+
+  @override
+  int get hashCode => 0;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is ImageCompress && runtimeType == other.runtimeType;
 }

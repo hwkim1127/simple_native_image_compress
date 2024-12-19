@@ -1,5 +1,5 @@
 ## 2.3.1
-* **FIX**: ignoring compress format for small images fixed.
+* **FIX**: ignoring AVIF compression format for small images fixed.
 
 ## 2.3.0
 * **FEAT**: added `CompressFormat.avif`

@@ -68,7 +68,7 @@ class NativeImageCompress extends BaseEntrypoint<NativeImageCompressApi,
   String get codegenVersion => '2.7.0';
 
   @override
-  int get rustContentHash => 862729445;
+  int get rustContentHash => -370377324;
 
   static const kDefaultExternalLibraryLoaderConfig =
       ExternalLibraryLoaderConfig(
@@ -103,15 +103,6 @@ abstract class NativeImageCompressApi extends BaseApi {
       int? quality,
       FilterType? samplingFilter,
       int? speed});
-
-  RustArcIncrementStrongCountFnType
-      get rust_arc_increment_strong_count_ImageCompress;
-
-  RustArcDecrementStrongCountFnType
-      get rust_arc_decrement_strong_count_ImageCompress;
-
-  CrossPlatformFinalizerArg
-      get rust_arc_decrement_strong_count_ImageCompressPtr;
 }
 
 class NativeImageCompressApiImpl extends NativeImageCompressApiImplPlatform
@@ -165,7 +156,7 @@ class NativeImageCompressApiImpl extends NativeImageCompressApiImplPlatform
 
   TaskConstMeta get kCrateApiCompressImageCompressContainConstMeta =>
       const TaskConstMeta(
-        debugName: "ImageCompress_contain",
+        debugName: "image_compress_contain",
         argNames: [
           "filePath",
           "compressFormat",
@@ -216,7 +207,7 @@ class NativeImageCompressApiImpl extends NativeImageCompressApiImplPlatform
 
   TaskConstMeta get kCrateApiCompressImageCompressFitHeightConstMeta =>
       const TaskConstMeta(
-        debugName: "ImageCompress_fit_height",
+        debugName: "image_compress_fit_height",
         argNames: [
           "filePath",
           "compressFormat",
@@ -266,7 +257,7 @@ class NativeImageCompressApiImpl extends NativeImageCompressApiImplPlatform
 
   TaskConstMeta get kCrateApiCompressImageCompressFitWidthConstMeta =>
       const TaskConstMeta(
-        debugName: "ImageCompress_fit_width",
+        debugName: "image_compress_fit_width",
         argNames: [
           "filePath",
           "compressFormat",
@@ -277,34 +268,10 @@ class NativeImageCompressApiImpl extends NativeImageCompressApiImplPlatform
         ],
       );
 
-  RustArcIncrementStrongCountFnType
-      get rust_arc_increment_strong_count_ImageCompress => wire
-          .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerImageCompress;
-
-  RustArcDecrementStrongCountFnType
-      get rust_arc_decrement_strong_count_ImageCompress => wire
-          .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerImageCompress;
-
   @protected
   AnyhowException dco_decode_AnyhowException(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return AnyhowException(raw as String);
-  }
-
-  @protected
-  ImageCompress
-      dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerImageCompress(
-          dynamic raw) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return ImageCompressImpl.frbInternalDcoDecode(raw as List<dynamic>);
-  }
-
-  @protected
-  ImageCompress
-      dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerImageCompress(
-          dynamic raw) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return ImageCompressImpl.frbInternalDcoDecode(raw as List<dynamic>);
   }
 
   @protected
@@ -356,6 +323,15 @@ class NativeImageCompressApiImpl extends NativeImageCompressApiImplPlatform
   }
 
   @protected
+  ImageCompress dco_decode_image_compress(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.isNotEmpty)
+      throw Exception('unexpected arr length: expect 0 but see ${arr.length}');
+    return const ImageCompress();
+  }
+
+  @protected
   Uint8List dco_decode_list_prim_u_8_strict(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return raw as Uint8List;
@@ -392,34 +368,10 @@ class NativeImageCompressApiImpl extends NativeImageCompressApiImplPlatform
   }
 
   @protected
-  BigInt dco_decode_usize(dynamic raw) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return dcoDecodeU64(raw);
-  }
-
-  @protected
   AnyhowException sse_decode_AnyhowException(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     var inner = sse_decode_String(deserializer);
     return AnyhowException(inner);
-  }
-
-  @protected
-  ImageCompress
-      sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerImageCompress(
-          SseDeserializer deserializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    return ImageCompressImpl.frbInternalSseDecode(
-        sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
-  }
-
-  @protected
-  ImageCompress
-      sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerImageCompress(
-          SseDeserializer deserializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    return ImageCompressImpl.frbInternalSseDecode(
-        sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
   }
 
   @protected
@@ -472,6 +424,12 @@ class NativeImageCompressApiImpl extends NativeImageCompressApiImplPlatform
   int sse_decode_i_32(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     return deserializer.buffer.getInt32();
+  }
+
+  @protected
+  ImageCompress sse_decode_image_compress(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return const ImageCompress();
   }
 
   @protected
@@ -534,12 +492,6 @@ class NativeImageCompressApiImpl extends NativeImageCompressApiImplPlatform
   }
 
   @protected
-  BigInt sse_decode_usize(SseDeserializer deserializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    return deserializer.buffer.getBigUint64();
-  }
-
-  @protected
   bool sse_decode_bool(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     return deserializer.buffer.getUint8() != 0;
@@ -550,26 +502,6 @@ class NativeImageCompressApiImpl extends NativeImageCompressApiImplPlatform
       AnyhowException self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_String(self.message, serializer);
-  }
-
-  @protected
-  void
-      sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerImageCompress(
-          ImageCompress self, SseSerializer serializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_usize(
-        (self as ImageCompressImpl).frbInternalSseEncode(move: true),
-        serializer);
-  }
-
-  @protected
-  void
-      sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerImageCompress(
-          ImageCompress self, SseSerializer serializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_usize(
-        (self as ImageCompressImpl).frbInternalSseEncode(move: null),
-        serializer);
   }
 
   @protected
@@ -621,6 +553,11 @@ class NativeImageCompressApiImpl extends NativeImageCompressApiImplPlatform
   void sse_encode_i_32(int self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     serializer.buffer.putInt32(self);
+  }
+
+  @protected
+  void sse_encode_image_compress(ImageCompress self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
   }
 
   @protected
@@ -680,34 +617,8 @@ class NativeImageCompressApiImpl extends NativeImageCompressApiImplPlatform
   }
 
   @protected
-  void sse_encode_usize(BigInt self, SseSerializer serializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    serializer.buffer.putBigUint64(self);
-  }
-
-  @protected
   void sse_encode_bool(bool self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     serializer.buffer.putUint8(self ? 1 : 0);
   }
-}
-
-@sealed
-class ImageCompressImpl extends RustOpaque implements ImageCompress {
-  // Not to be used by end users
-  ImageCompressImpl.frbInternalDcoDecode(List<dynamic> wire)
-      : super.frbInternalDcoDecode(wire, _kStaticData);
-
-  // Not to be used by end users
-  ImageCompressImpl.frbInternalSseDecode(BigInt ptr, int externalSizeOnNative)
-      : super.frbInternalSseDecode(ptr, externalSizeOnNative, _kStaticData);
-
-  static final _kStaticData = RustArcStaticData(
-    rustArcIncrementStrongCount: NativeImageCompress
-        .instance.api.rust_arc_increment_strong_count_ImageCompress,
-    rustArcDecrementStrongCount: NativeImageCompress
-        .instance.api.rust_arc_decrement_strong_count_ImageCompress,
-    rustArcDecrementStrongCountPtr: NativeImageCompress
-        .instance.api.rust_arc_decrement_strong_count_ImageCompressPtr,
-  );
 }

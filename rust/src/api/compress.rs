@@ -1,19 +1,9 @@
-use flutter_rust_bridge::frb;
 use image::{imageops, DynamicImage, GenericImageView, ImageReader};
 
 use super::constants::{self, CompressFormat};
 use super::{encode, orientation};
 
-// #[flutter_rust_bridge::frb(sync)] // Synchronous mode for simplicity of the demo
-// pub fn greet(name: String) -> String {
-//     format!("Hello, {name}!")
-// }
 
-// #[flutter_rust_bridge::frb(init)]
-// pub fn init_app() {
-//     // Default utilities - feel free to customize
-//     flutter_rust_bridge::setup_default_user_utils();
-// }
 fn compress(
     img: &DynamicImage,
     img_height: u32,
@@ -52,8 +42,7 @@ fn compress(
     return encode::dyn_img_to_bytes(img, compress_format, quality, speed);
 }
 
-#[frb(opaque)]
-pub struct ImageCompress;
+pub struct ImageCompress {}
 
 impl ImageCompress {
     pub fn fit_width(
