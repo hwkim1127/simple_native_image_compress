@@ -1,3 +1,6 @@
+## 2.3.0
+* **ANDROID JAVA UPDATE**: JAVA 8 -> JAVA 17
+
 ## 2.2.0
 * **DEPENDENCY UPDATE**: `flutter_rust_bridge` 2.6.0 -> 2.7.0
 
