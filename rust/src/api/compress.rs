@@ -49,7 +49,7 @@ fn compress(
         }
 
     }
-    return encode::dyn_img_to_bytes(img, compress_format, quality);
+    return encode::dyn_img_to_bytes(img, compress_format, quality, speed);
 }
 
 #[frb(opaque)]

@@ -59,7 +59,7 @@ rustup target add aarch64-apple-ios x86_64-apple-ios aarch64-apple-ios-sim
   - lossless only
 - AVIF
   - lossy only
-  - `speed` parameter can be given in the range 1-10, where 1 is the slowest and 10 is the fastest. Default is 10
+  - `speed` parameter can be given in the range 1-10, where 1 is the slowest and 10 is the fastest. Default is 10.
 
 
 ## Sampling Filter Types

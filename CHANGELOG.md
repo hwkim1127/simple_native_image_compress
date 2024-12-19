@@ -1,3 +1,6 @@
+## 2.3.1
+* **FIX**: ignoring compress format for small images fixed.
+
 ## 2.3.0
 * **FEAT**: added `CompressFormat.avif`
 * **ANDROID JAVA UPDATE**: JAVA 8 -> JAVA 17
