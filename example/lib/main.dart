@@ -1,10 +1,10 @@
 import 'dart:io';
 
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'dart:async';
 
+import 'package:file_picker/file_picker.dart';
+import 'package:flutter_avif/flutter_avif.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:simple_native_image_compress/simple_native_image_compress.dart';
 
@@ -26,6 +26,8 @@ class _MyAppState extends State<MyApp> {
 
   Uint8List? _bytes;
 
+  final _compressFormat = CompressFormat.avif;
+
   Future<void> _compressImage() async {
     String filePath = '';
     if (Platform.isMacOS) {
@@ -43,7 +45,7 @@ class _MyAppState extends State<MyApp> {
       final startTime = DateTime.now();
       final bytes = await ImageCompress.contain(
         filePath: filePath,
-        compressFormat: CompressFormat.jpeg,
+        compressFormat: _compressFormat,
         samplingFilter: FilterType.lanczos3,
         // withFileExt: true,
       );
@@ -118,7 +120,13 @@ class _MyAppState extends State<MyApp> {
             Expanded(
               child: _bytes != null
                   ? InkWell(
-                      onSecondaryTap: _saveImage, child: Image.memory(_bytes!))
+                      onSecondaryTap: _saveImage,
+                      child: _compressFormat == CompressFormat.avif
+                          ? AvifImage.memory(
+                              _bytes!,
+                              fit: BoxFit.contain,
+                            )
+                          : Image.memory(_bytes!))
                   : Container(),
             ),
           ],
