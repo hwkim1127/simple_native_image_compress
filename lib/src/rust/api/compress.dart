@@ -17,38 +17,44 @@ abstract class ImageCompress implements RustOpaqueInterface {
           int? maxWidth,
           int? maxHeight,
           int? quality,
-          FilterType? samplingFilter}) =>
+          FilterType? samplingFilter,
+          int? speed}) =>
       NativeImageCompress.instance.api.crateApiCompressImageCompressContain(
           filePath: filePath,
           compressFormat: compressFormat,
           maxWidth: maxWidth,
           maxHeight: maxHeight,
           quality: quality,
-          samplingFilter: samplingFilter);
+          samplingFilter: samplingFilter,
+          speed: speed);
 
   static Future<Uint8List> fitHeight(
           {required String filePath,
           CompressFormat? compressFormat,
           int? maxHeight,
           int? quality,
-          FilterType? samplingFilter}) =>
+          FilterType? samplingFilter,
+          int? speed}) =>
       NativeImageCompress.instance.api.crateApiCompressImageCompressFitHeight(
           filePath: filePath,
           compressFormat: compressFormat,
           maxHeight: maxHeight,
           quality: quality,
-          samplingFilter: samplingFilter);
+          samplingFilter: samplingFilter,
+          speed: speed);
 
   static Future<Uint8List> fitWidth(
           {required String filePath,
           CompressFormat? compressFormat,
           int? maxWidth,
           int? quality,
-          FilterType? samplingFilter}) =>
+          FilterType? samplingFilter,
+          int? speed}) =>
       NativeImageCompress.instance.api.crateApiCompressImageCompressFitWidth(
           filePath: filePath,
           compressFormat: compressFormat,
           maxWidth: maxWidth,
           quality: quality,
-          samplingFilter: samplingFilter);
+          samplingFilter: samplingFilter,
+          speed: speed);
 }

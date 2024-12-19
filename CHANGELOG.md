@@ -1,4 +1,5 @@
 ## 2.3.0
+* **FEAT**: added `CompressFormat.avif`
 * **ANDROID JAVA UPDATE**: JAVA 8 -> JAVA 17
 
 ## 2.2.0

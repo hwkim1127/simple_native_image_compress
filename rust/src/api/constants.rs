@@ -5,6 +5,7 @@ use image::imageops;
 pub enum CompressFormat {
     Jpeg,
     WebP,
+    AVIF,
 }
 
 /*

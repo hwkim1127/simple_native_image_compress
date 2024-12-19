@@ -76,6 +76,7 @@ fn wire__crate__api__compress__ImageCompress_contain_impl(
             let api_quality = <Option<u8>>::sse_decode(&mut deserializer);
             let api_sampling_filter =
                 <Option<crate::api::constants::FilterType>>::sse_decode(&mut deserializer);
+            let api_speed = <Option<u8>>::sse_decode(&mut deserializer);
             deserializer.end();
             move |context| {
                 transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
@@ -87,6 +88,7 @@ fn wire__crate__api__compress__ImageCompress_contain_impl(
                             api_max_height,
                             api_quality,
                             api_sampling_filter,
+                            api_speed,
                         )?;
                         Ok(output_ok)
                     })(),
@@ -124,6 +126,7 @@ fn wire__crate__api__compress__ImageCompress_fit_height_impl(
             let api_quality = <Option<u8>>::sse_decode(&mut deserializer);
             let api_sampling_filter =
                 <Option<crate::api::constants::FilterType>>::sse_decode(&mut deserializer);
+            let api_speed = <Option<u8>>::sse_decode(&mut deserializer);
             deserializer.end();
             move |context| {
                 transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
@@ -134,6 +137,7 @@ fn wire__crate__api__compress__ImageCompress_fit_height_impl(
                             api_max_height,
                             api_quality,
                             api_sampling_filter,
+                            api_speed,
                         )?;
                         Ok(output_ok)
                     })(),
@@ -171,6 +175,7 @@ fn wire__crate__api__compress__ImageCompress_fit_width_impl(
             let api_quality = <Option<u8>>::sse_decode(&mut deserializer);
             let api_sampling_filter =
                 <Option<crate::api::constants::FilterType>>::sse_decode(&mut deserializer);
+            let api_speed = <Option<u8>>::sse_decode(&mut deserializer);
             deserializer.end();
             move |context| {
                 transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
@@ -181,6 +186,7 @@ fn wire__crate__api__compress__ImageCompress_fit_width_impl(
                             api_max_width,
                             api_quality,
                             api_sampling_filter,
+                            api_speed,
                         )?;
                         Ok(output_ok)
                     })(),
@@ -241,6 +247,7 @@ impl SseDecode for crate::api::constants::CompressFormat {
         return match inner {
             0 => crate::api::constants::CompressFormat::Jpeg,
             1 => crate::api::constants::CompressFormat::WebP,
+            2 => crate::api::constants::CompressFormat::AVIF,
             _ => unreachable!("Invalid variant for CompressFormat: {}", inner),
         };
     }
@@ -415,6 +422,7 @@ impl flutter_rust_bridge::IntoDart for crate::api::constants::CompressFormat {
         match self {
             Self::Jpeg => 0.into_dart(),
             Self::WebP => 1.into_dart(),
+            Self::AVIF => 2.into_dart(),
             _ => unreachable!(),
         }
     }
@@ -494,6 +502,7 @@ impl SseEncode for crate::api::constants::CompressFormat {
             match self {
                 crate::api::constants::CompressFormat::Jpeg => 0,
                 crate::api::constants::CompressFormat::WebP => 1,
+                crate::api::constants::CompressFormat::AVIF => 2,
                 _ => {
                     unimplemented!("");
                 }

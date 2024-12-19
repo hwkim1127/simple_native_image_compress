@@ -56,6 +56,10 @@ rustup target add aarch64-apple-ios x86_64-apple-ios aarch64-apple-ios-sim
 
 - Jpeg
 - WebP
+- AVIF
+  - lossy only
+  - `speed` parameter can be given in the range 1-10, where 1 is the slowest and 10 is the fastest. Default is 10
+
 
 ## Sampling Filter Types
 
@@ -84,7 +88,8 @@ Future<void> main() async {
 try{
   final bytes = await ImageCompress.contain(
     filePath: yourFilePath,
-    compressFormat: CompressFormat.Jpeg,
+    compressFormat: CompressFormat.avif,
+    speed: 3, // only for AVIF
     quality: 90,
     maxWidth: 512,
     maxHeight: 512,
@@ -100,7 +105,7 @@ try{
 try{
   final bytes = await ImageCompress.fitWidth(
     filePath: yourFilePath,
-    compressFormat: CompressFormat.WebP,
+    compressFormat: CompressFormat.webP,
     maxWidth: 512,
     samplingFilter: FilterType.Lanczos3
   );
@@ -114,7 +119,7 @@ try{
 try{
   final bytes = await ImageCompress.fitHeight(
     filePath: yourFilePath,
-    compressFormat: CompressFormat.WebP,
+    compressFormat: CompressFormat.jpeg,
     maxHeight: 512,
     samplingFilter: FilterType.Lanczos3
   );
@@ -126,8 +131,9 @@ try{
 ## Default values
 
 - Default value for width and/or height is `1024 px`
-- Default value for Jpeg quality is `80` (For webP Quality does nothing)
+- Default value for Jpeg/AVIF quality is `80` (For webP Quality does nothing)
 - Default value for samplingFilter is `FilterType.Triangle`
+- Default value for AVIF speed is `10`
 
 [1]: <https://github.com/fzyzcjy/flutter_rust_bridge> "flutter rust bridge github"
 [2]: <https://github.com/image-rs/image> "rust image crate github"

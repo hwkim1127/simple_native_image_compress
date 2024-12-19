@@ -22,28 +22,32 @@ fn compress(
     compress_format: CompressFormat,
     quality: u8,
     sampling_filter: constants::FilterType,
+    speed: Option<u8>,
 ) -> Result<Vec<u8>, anyhow::Error> {
     if scale < 1.0 {
         let output_width: u32 = (img_width as f64 * scale) as u32;
         let output_height: u32 = (img_height as f64 * scale) as u32;
-
-        if compress_format == CompressFormat::WebP {
-            let img_buf: image::ImageBuffer<image::Rgba<u8>, Vec<u8>> = imageops::resize(
-                img,
-                output_width,
-                output_height,
-                constants::convert_filter_type(sampling_filter),
-            );
-            return encode::img_buffer_to_bytes_with_alpha(&img_buf);
-        } else {
-            let img_buf: image::ImageBuffer<image::Rgb<u8>, Vec<u8>> = imageops::resize(
-                &img.to_rgb8(),
-                output_width,
-                output_height,
-                constants::convert_filter_type(sampling_filter),
-            );
-            return encode::img_buffer_to_bytes_without_alpha(&img_buf, quality);
+        match compress_format {
+            CompressFormat::WebP | CompressFormat::AVIF => {
+                let img_buf: image::ImageBuffer<image::Rgba<u8>, Vec<u8>> = imageops::resize(
+                    img,
+                    output_width,
+                    output_height,
+                    constants::convert_filter_type(sampling_filter),
+                );
+                return encode::img_buffer_to_bytes_with_alpha(compress_format, &img_buf, quality, speed);
+            },
+            _ => {
+                let img_buf: image::ImageBuffer<image::Rgb<u8>, Vec<u8>> = imageops::resize(
+                    &img.to_rgb8(),
+                    output_width,
+                    output_height,
+                    constants::convert_filter_type(sampling_filter),
+                );
+                return encode::img_buffer_to_bytes_without_alpha(&img_buf, quality);
+            },
         }
+
     }
     return encode::dyn_img_to_bytes(img, compress_format, quality);
 }
@@ -58,6 +62,7 @@ impl ImageCompress {
         max_width: Option<i32>,
         quality: Option<u8>,
         sampling_filter: Option<constants::FilterType>,
+        speed: Option<u8>,
     ) -> Result<Vec<u8>, anyhow::Error> {
         let orientation = orientation::check(&file_path)?;
         let mut dyn_img = ImageReader::open(file_path)?.with_guessed_format()?.decode()?;
@@ -81,6 +86,7 @@ impl ImageCompress {
             compress_format,
             quality,
             sampling_filter,
+            speed,
         )?);
     }
     
@@ -90,6 +96,7 @@ impl ImageCompress {
         max_height: Option<i32>,
         quality: Option<u8>,
         sampling_filter: Option<constants::FilterType>,
+        speed: Option<u8>,
     ) -> Result<Vec<u8>, anyhow::Error> {
         let orientation = orientation::check(&file_path)?;
         let mut dyn_img = ImageReader::open(file_path)?.with_guessed_format()?.decode()?;
@@ -113,6 +120,7 @@ impl ImageCompress {
             compress_format,
             quality,
             sampling_filter,
+            speed,
         )?;
         return Ok(res);
     }
@@ -124,6 +132,7 @@ impl ImageCompress {
         max_height: Option<i32>,
         quality: Option<u8>,
         sampling_filter: Option<constants::FilterType>,
+        speed: Option<u8>,
     ) -> Result<Vec<u8>, anyhow::Error>{
         let orientation = orientation::check(&file_path)?;
         let mut dyn_img = ImageReader::open(file_path)?.with_guessed_format()?.decode()?;
@@ -152,6 +161,7 @@ impl ImageCompress {
             compress_format,
             quality,
             sampling_filter,
+            speed,
         )?);
     }
 }
