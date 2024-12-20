@@ -9,7 +9,7 @@ A simple native image compression library for Flutter written in rust using [flu
 
 ## What does it do?
 
-- If path for an image file is given, it will resize and return Jpeg/WebP image as Uint8List.
+- If path for an image file is given, it will resize and return AVIF, Jpeg, or WebP image as Uint8List.
 
 ## What it does not do
 
