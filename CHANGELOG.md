@@ -1,3 +1,8 @@
+## 2.3.2
+* **Android Update**: 
+    * com.android.tools.build:gradle: 7.3.0 -> 8.7.3
+    * Compile SDK Version: 33 -> 35
+
 ## 2.3.1
 * **FIX**: ignoring AVIF compression format for small images fixed.
 

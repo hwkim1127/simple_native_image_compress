@@ -45,7 +45,7 @@ dependencies:
   image_picker:
   file_picker:
   permission_handler:
-  flutter_avif:
+  flutter_avif: ^3.0.0
 
 dev_dependencies:
   flutter_test:
