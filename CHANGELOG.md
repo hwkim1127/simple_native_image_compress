@@ -1,5 +1,5 @@
 ## 2.4.0
-* **DEPENDENCY UPDATE**: `flutter_rust_bridge` 2.7.0 -> ^2.7.0
+* **DEPENDENCY UPDATE**: `flutter_rust_bridge` 2.7.0 -> 2.8.0
 * **ANDROID DEPENDENCIES UPDATE**:
     * org.jetbrains.kotlin.android: 1.7.10 -> 2.1.0
     * com.android.tools.build:gradle: 7.3.0 -> 8.7.3
