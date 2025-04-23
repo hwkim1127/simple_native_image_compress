@@ -1,3 +1,6 @@
+## 2.5.0
+* **DEPENDENCY UPDATE**: `flutter_rust_bridge` 2.8.0 -> 2.9.0
+
 ## 2.4.0
 * **DEPENDENCY UPDATE**: `flutter_rust_bridge` 2.7.0 -> 2.8.0
 * **ANDROID DEPENDENCIES UPDATE**:
