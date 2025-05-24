@@ -2,7 +2,7 @@
 > Note: This release has breaking changes. and WILL NOT WORK FOR FLUTTER VERSION BELOW 3.32.0
 * **ANDROID BREAKING CHANGE**:
     - Flutter plugin name change for Gradle, since it seems like Flutter Team completely changed the methods of the FlutterPlugin class when porting from Groovy to Kotlin.
-
+* **DEPENDENCY UPDATE**: `flutter_rust_bridge` 2.9.0 -> 2.10.0
 
 ## 2.5.0
 * **DEPENDENCY UPDATE**: `flutter_rust_bridge` 2.8.0 -> 2.9.0
