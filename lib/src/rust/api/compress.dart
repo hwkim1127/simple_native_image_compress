@@ -29,6 +29,42 @@ class ImageCompress {
           samplingFilter: samplingFilter,
           speed: speed);
 
+  static Future<Uint8List> containFromBytes(
+          {required List<int> bytes,
+          CompressFormat? compressFormat,
+          int? maxWidth,
+          int? maxHeight,
+          int? quality,
+          FilterType? samplingFilter,
+          int? speed}) =>
+      NativeImageCompress.instance.api
+          .crateApiCompressImageCompressContainFromBytes(
+              bytes: bytes,
+              compressFormat: compressFormat,
+              maxWidth: maxWidth,
+              maxHeight: maxHeight,
+              quality: quality,
+              samplingFilter: samplingFilter,
+              speed: speed);
+
+  static Future<Uint8List> containFromFilepath(
+          {required String filePath,
+          CompressFormat? compressFormat,
+          int? maxWidth,
+          int? maxHeight,
+          int? quality,
+          FilterType? samplingFilter,
+          int? speed}) =>
+      NativeImageCompress.instance.api
+          .crateApiCompressImageCompressContainFromFilepath(
+              filePath: filePath,
+              compressFormat: compressFormat,
+              maxWidth: maxWidth,
+              maxHeight: maxHeight,
+              quality: quality,
+              samplingFilter: samplingFilter,
+              speed: speed);
+
   static Future<Uint8List> fitHeight(
           {required String filePath,
           CompressFormat? compressFormat,
@@ -44,6 +80,38 @@ class ImageCompress {
           samplingFilter: samplingFilter,
           speed: speed);
 
+  static Future<Uint8List> fitHeightFromBytes(
+          {required List<int> bytes,
+          CompressFormat? compressFormat,
+          int? maxHeight,
+          int? quality,
+          FilterType? samplingFilter,
+          int? speed}) =>
+      NativeImageCompress.instance.api
+          .crateApiCompressImageCompressFitHeightFromBytes(
+              bytes: bytes,
+              compressFormat: compressFormat,
+              maxHeight: maxHeight,
+              quality: quality,
+              samplingFilter: samplingFilter,
+              speed: speed);
+
+  static Future<Uint8List> fitHeightFromFilepath(
+          {required String filePath,
+          CompressFormat? compressFormat,
+          int? maxHeight,
+          int? quality,
+          FilterType? samplingFilter,
+          int? speed}) =>
+      NativeImageCompress.instance.api
+          .crateApiCompressImageCompressFitHeightFromFilepath(
+              filePath: filePath,
+              compressFormat: compressFormat,
+              maxHeight: maxHeight,
+              quality: quality,
+              samplingFilter: samplingFilter,
+              speed: speed);
+
   static Future<Uint8List> fitWidth(
           {required String filePath,
           CompressFormat? compressFormat,
@@ -58,6 +126,38 @@ class ImageCompress {
           quality: quality,
           samplingFilter: samplingFilter,
           speed: speed);
+
+  static Future<Uint8List> fitWidthFromBytes(
+          {required List<int> bytes,
+          CompressFormat? compressFormat,
+          int? maxWidth,
+          int? quality,
+          FilterType? samplingFilter,
+          int? speed}) =>
+      NativeImageCompress.instance.api
+          .crateApiCompressImageCompressFitWidthFromBytes(
+              bytes: bytes,
+              compressFormat: compressFormat,
+              maxWidth: maxWidth,
+              quality: quality,
+              samplingFilter: samplingFilter,
+              speed: speed);
+
+  static Future<Uint8List> fitWidthFromFilepath(
+          {required String filePath,
+          CompressFormat? compressFormat,
+          int? maxWidth,
+          int? quality,
+          FilterType? samplingFilter,
+          int? speed}) =>
+      NativeImageCompress.instance.api
+          .crateApiCompressImageCompressFitWidthFromFilepath(
+              filePath: filePath,
+              compressFormat: compressFormat,
+              maxWidth: maxWidth,
+              quality: quality,
+              samplingFilter: samplingFilter,
+              speed: speed);
 
   @override
   int get hashCode => 0;

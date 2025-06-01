@@ -51,6 +51,9 @@ abstract class NativeImageCompressApiImplPlatform
   ImageCompress dco_decode_image_compress(dynamic raw);
 
   @protected
+  List<int> dco_decode_list_prim_u_8_loose(dynamic raw);
+
+  @protected
   Uint8List dco_decode_list_prim_u_8_strict(dynamic raw);
 
   @protected
@@ -98,6 +101,9 @@ abstract class NativeImageCompressApiImplPlatform
 
   @protected
   ImageCompress sse_decode_image_compress(SseDeserializer deserializer);
+
+  @protected
+  List<int> sse_decode_list_prim_u_8_loose(SseDeserializer deserializer);
 
   @protected
   Uint8List sse_decode_list_prim_u_8_strict(SseDeserializer deserializer);
@@ -155,6 +161,9 @@ abstract class NativeImageCompressApiImplPlatform
 
   @protected
   void sse_encode_image_compress(ImageCompress self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_list_prim_u_8_loose(List<int> self, SseSerializer serializer);
 
   @protected
   void sse_encode_list_prim_u_8_strict(

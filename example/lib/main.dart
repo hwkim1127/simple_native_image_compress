@@ -28,6 +28,115 @@ class _MyAppState extends State<MyApp> {
 
   final _compressFormat = CompressFormat.avif;
 
+  Future<void> _compressImageFromFilePath() async {
+    String filePath = '';
+    if (Platform.isMacOS) {
+      final res = await FilePicker.platform
+          .pickFiles(type: FileType.image, allowMultiple: false);
+      if (res == null) return;
+      if (res.files.isEmpty) return;
+      filePath = res.files[0].path!;
+    } else {
+      final file = await _picker.pickImage(source: ImageSource.gallery);
+      if (file == null) return;
+      filePath = file.path;
+    }
+    try {
+      final startTime = DateTime.now();
+      final bytes = await ImageCompress.containFromFilepath(
+        filePath: filePath,
+        compressFormat: _compressFormat,
+        samplingFilter: FilterType.lanczos3,
+        // withFileExt: true,
+      );
+      final endTime = DateTime.now();
+      setState(() {
+        _bytes = bytes;
+        _duration = endTime.difference(startTime);
+      });
+    } catch (e) {
+      if (!mounted) return;
+      showDialog<void>(
+        context: context,
+        builder: (_) => AlertDialog(
+          title: const Text(
+            'Error Occured',
+            style: TextStyle(color: Colors.red),
+          ),
+          content: Text(e.toString()),
+          actions: [
+            Center(
+              child: TextButton(
+                style: TextButton.styleFrom(
+                  foregroundColor: Colors.white,
+                  backgroundColor: Colors.blue, // Background Color
+                ),
+                onPressed: Navigator.of(context).pop,
+                child: const Text('Ok'),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+  }
+
+  Future<void> _compressImageFromBytes() async {
+    Uint8List? imgBytes;
+    if (Platform.isMacOS) {
+      final res = await FilePicker.platform
+          .pickFiles(type: FileType.image, allowMultiple: false);
+      if (res == null) return;
+      if (res.files.isEmpty) return;
+      imgBytes = res.files[0].bytes;
+    } else {
+      final file = await _picker.pickImage(source: ImageSource.gallery);
+      if (file == null) return;
+      imgBytes = await file.readAsBytes();
+    }
+
+    if (imgBytes == null) return;
+
+    try {
+      final startTime = DateTime.now();
+      final bytes = await ImageCompress.containFromBytes(
+        bytes: imgBytes,
+        compressFormat: _compressFormat,
+        samplingFilter: FilterType.lanczos3,
+        // withFileExt: true,
+      );
+      final endTime = DateTime.now();
+      setState(() {
+        _bytes = bytes;
+        _duration = endTime.difference(startTime);
+      });
+    } catch (e) {
+      if (!mounted) return;
+      showDialog<void>(
+        context: context,
+        builder: (_) => AlertDialog(
+          title: const Text(
+            'Error Occured',
+            style: TextStyle(color: Colors.red),
+          ),
+          content: Text(e.toString()),
+          actions: [
+            Center(
+              child: TextButton(
+                style: TextButton.styleFrom(
+                  foregroundColor: Colors.white,
+                  backgroundColor: Colors.blue, // Background Color
+                ),
+                onPressed: Navigator.of(context).pop,
+                child: const Text('Ok'),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+  }
+
   Future<void> _compressImage() async {
     String filePath = '';
     if (Platform.isMacOS) {
@@ -109,9 +218,22 @@ class _MyAppState extends State<MyApp> {
         child: Column(
           children: [
             const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: _compressImage,
-              child: const Text('Choose an image'),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: _compressImage,
+                  child: const Text('Compress from file path (deprecated)'),
+                ),
+                ElevatedButton(
+                  onPressed: _compressImageFromFilePath,
+                  child: const Text('Compress from file path (new)'),
+                ),
+                ElevatedButton(
+                  onPressed: _compressImageFromBytes,
+                  child: const Text('Compress from bytes'),
+                ),
+              ],
             ),
             const SizedBox(height: 20),
             Text(
