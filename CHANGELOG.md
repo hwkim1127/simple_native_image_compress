@@ -1,7 +1,3 @@
-## 3.1.0
-** DEPRECATED **
-
-
 ## 3.0.0
 > Note: This release has breaking changes. and WILL NOT WORK FOR FLUTTER VERSION BELOW 3.32.0
 * **ANDROID BREAKING CHANGE**:
