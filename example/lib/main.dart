@@ -31,8 +31,10 @@ class _MyAppState extends State<MyApp> {
   Future<void> _compressImageFromFilePath() async {
     String filePath = '';
     if (Platform.isMacOS) {
-      final res = await FilePicker.platform
-          .pickFiles(type: FileType.image, allowMultiple: false);
+      final res = await FilePicker.platform.pickFiles(
+        type: FileType.image,
+        allowMultiple: false,
+      );
       if (res == null) return;
       if (res.files.isEmpty) return;
       filePath = res.files[0].path!;
@@ -84,8 +86,10 @@ class _MyAppState extends State<MyApp> {
   Future<void> _compressImageFromBytes() async {
     Uint8List? imgBytes;
     if (Platform.isMacOS) {
-      final res = await FilePicker.platform
-          .pickFiles(type: FileType.image, allowMultiple: false);
+      final res = await FilePicker.platform.pickFiles(
+        type: FileType.image,
+        allowMultiple: false,
+      );
       if (res == null) return;
       if (res.files.isEmpty) return;
       imgBytes = res.files[0].bytes;
@@ -101,59 +105,6 @@ class _MyAppState extends State<MyApp> {
       final startTime = DateTime.now();
       final bytes = await ImageCompress.containFromBytes(
         bytes: imgBytes,
-        compressFormat: _compressFormat,
-        samplingFilter: FilterType.lanczos3,
-        // withFileExt: true,
-      );
-      final endTime = DateTime.now();
-      setState(() {
-        _bytes = bytes;
-        _duration = endTime.difference(startTime);
-      });
-    } catch (e) {
-      if (!mounted) return;
-      showDialog<void>(
-        context: context,
-        builder: (_) => AlertDialog(
-          title: const Text(
-            'Error Occured',
-            style: TextStyle(color: Colors.red),
-          ),
-          content: Text(e.toString()),
-          actions: [
-            Center(
-              child: TextButton(
-                style: TextButton.styleFrom(
-                  foregroundColor: Colors.white,
-                  backgroundColor: Colors.blue, // Background Color
-                ),
-                onPressed: Navigator.of(context).pop,
-                child: const Text('Ok'),
-              ),
-            ),
-          ],
-        ),
-      );
-    }
-  }
-
-  Future<void> _compressImage() async {
-    String filePath = '';
-    if (Platform.isMacOS) {
-      final res = await FilePicker.platform
-          .pickFiles(type: FileType.image, allowMultiple: false);
-      if (res == null) return;
-      if (res.files.isEmpty) return;
-      filePath = res.files[0].path!;
-    } else {
-      final file = await _picker.pickImage(source: ImageSource.gallery);
-      if (file == null) return;
-      filePath = file.path;
-    }
-    try {
-      final startTime = DateTime.now();
-      final bytes = await ImageCompress.contain(
-        filePath: filePath,
         compressFormat: _compressFormat,
         samplingFilter: FilterType.lanczos3,
         // withFileExt: true,
@@ -211,23 +162,16 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Plugin example app'),
-      ),
+      appBar: AppBar(title: const Text('Plugin example app')),
       body: SafeArea(
         child: Column(
           children: [
             const SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+            Wrap(
               children: [
                 ElevatedButton(
-                  onPressed: _compressImage,
-                  child: const Text('Compress from file path (deprecated)'),
-                ),
-                ElevatedButton(
                   onPressed: _compressImageFromFilePath,
-                  child: const Text('Compress from file path (new)'),
+                  child: const Text('Compress from file path'),
                 ),
                 ElevatedButton(
                   onPressed: _compressImageFromBytes,
@@ -237,18 +181,17 @@ class _MyAppState extends State<MyApp> {
             ),
             const SizedBox(height: 20),
             Text(
-                '(${kDebugMode ? 'DEBUG' : 'RELEASE'}) mode time taken: ${_duration.inMilliseconds} ms'),
+              '(${kDebugMode ? 'DEBUG' : 'RELEASE'}) mode time taken: ${_duration.inMilliseconds} ms',
+            ),
             const SizedBox(height: 10),
             Expanded(
               child: _bytes != null
                   ? InkWell(
                       onSecondaryTap: _saveImage,
                       child: _compressFormat == CompressFormat.avif
-                          ? AvifImage.memory(
-                              _bytes!,
-                              fit: BoxFit.contain,
-                            )
-                          : Image.memory(_bytes!))
+                          ? AvifImage.memory(_bytes!, fit: BoxFit.contain)
+                          : Image.memory(_bytes!),
+                    )
                   : Container(),
             ),
           ],

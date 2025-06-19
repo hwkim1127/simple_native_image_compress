@@ -1,6 +1,6 @@
-# simple_native_image_compress_example
+# simple_native_image_compress
 
-Demonstrates how to use the simple_native_image_compress plugin.
+Demonstrates how to use the untitled plugin.
 
 ## Getting Started
 

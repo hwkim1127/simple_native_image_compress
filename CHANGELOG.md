@@ -1,3 +1,10 @@
+## 3.0.2
+* **FEAT**: Updated the `cargokit` dependency.
+* **DEPRECATED**: Deprecated `contain`, `fitWidth`, and `fitHeight` in favor of `containFromFilePath`, `fitWidthFromFilePath`, and `fitHeightFromFilePath`.
+
+## 3.0.1
+* **RETRACTED**: Do not use. Replaced by version `3.0.2`.
+
 ## 3.0.0
 > Note: This release has breaking changes. and WILL NOT WORK FOR FLUTTER VERSION BELOW 3.32.0
 * **ANDROID BREAKING CHANGE**:

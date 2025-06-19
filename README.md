@@ -87,7 +87,7 @@ Future<void> main() async {
 #### "contain" will make the image fit into the given max width/height.
 ```shell
 try{
-  final bytes = await ImageCompress.contain(
+  final bytes = await ImageCompress.containFromFilepath(
     filePath: yourFilePath,
     compressFormat: CompressFormat.avif,
     speed: 3, // only for AVIF
@@ -104,7 +104,7 @@ try{
 #### "fitWidth" will make the image fit into the given max width.
 ```shell
 try{
-  final bytes = await ImageCompress.fitWidth(
+  final bytes = await ImageCompress.fitWidthFromFilepath(
     filePath: yourFilePath,
     compressFormat: CompressFormat.webP,
     maxWidth: 512,
@@ -118,7 +118,7 @@ try{
 #### "fitHeight" will make the image fit into the given max height.
 ```shell
 try{
-  final bytes = await ImageCompress.fitHeight(
+  final bytes = await ImageCompress.fitHeightFromFilepath(
     filePath: yourFilePath,
     compressFormat: CompressFormat.jpeg,
     maxHeight: 512,
