@@ -68,7 +68,7 @@ class NativeImageCompress extends BaseEntrypoint<NativeImageCompressApi,
   String get codegenVersion => '2.10.0';
 
   @override
-  int get rustContentHash => -370377324;
+  int get rustContentHash => -315761635;
 
   static const kDefaultExternalLibraryLoaderConfig =
       ExternalLibraryLoaderConfig(
@@ -88,6 +88,24 @@ abstract class NativeImageCompressApi extends BaseApi {
       FilterType? samplingFilter,
       int? speed});
 
+  Future<Uint8List> crateApiCompressImageCompressContainFromBytes(
+      {required List<int> bytes,
+      CompressFormat? compressFormat,
+      int? maxWidth,
+      int? maxHeight,
+      int? quality,
+      FilterType? samplingFilter,
+      int? speed});
+
+  Future<Uint8List> crateApiCompressImageCompressContainFromFilepath(
+      {required String filePath,
+      CompressFormat? compressFormat,
+      int? maxWidth,
+      int? maxHeight,
+      int? quality,
+      FilterType? samplingFilter,
+      int? speed});
+
   Future<Uint8List> crateApiCompressImageCompressFitHeight(
       {required String filePath,
       CompressFormat? compressFormat,
@@ -96,7 +114,39 @@ abstract class NativeImageCompressApi extends BaseApi {
       FilterType? samplingFilter,
       int? speed});
 
+  Future<Uint8List> crateApiCompressImageCompressFitHeightFromBytes(
+      {required List<int> bytes,
+      CompressFormat? compressFormat,
+      int? maxHeight,
+      int? quality,
+      FilterType? samplingFilter,
+      int? speed});
+
+  Future<Uint8List> crateApiCompressImageCompressFitHeightFromFilepath(
+      {required String filePath,
+      CompressFormat? compressFormat,
+      int? maxHeight,
+      int? quality,
+      FilterType? samplingFilter,
+      int? speed});
+
   Future<Uint8List> crateApiCompressImageCompressFitWidth(
+      {required String filePath,
+      CompressFormat? compressFormat,
+      int? maxWidth,
+      int? quality,
+      FilterType? samplingFilter,
+      int? speed});
+
+  Future<Uint8List> crateApiCompressImageCompressFitWidthFromBytes(
+      {required List<int> bytes,
+      CompressFormat? compressFormat,
+      int? maxWidth,
+      int? quality,
+      FilterType? samplingFilter,
+      int? speed});
+
+  Future<Uint8List> crateApiCompressImageCompressFitWidthFromFilepath(
       {required String filePath,
       CompressFormat? compressFormat,
       int? maxWidth,
@@ -169,6 +219,115 @@ class NativeImageCompressApiImpl extends NativeImageCompressApiImplPlatform
       );
 
   @override
+  Future<Uint8List> crateApiCompressImageCompressContainFromBytes(
+      {required List<int> bytes,
+      CompressFormat? compressFormat,
+      int? maxWidth,
+      int? maxHeight,
+      int? quality,
+      FilterType? samplingFilter,
+      int? speed}) {
+    return handler.executeNormal(NormalTask(
+      callFfi: (port_) {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_list_prim_u_8_loose(bytes, serializer);
+        sse_encode_opt_box_autoadd_compress_format(compressFormat, serializer);
+        sse_encode_opt_box_autoadd_i_32(maxWidth, serializer);
+        sse_encode_opt_box_autoadd_i_32(maxHeight, serializer);
+        sse_encode_opt_box_autoadd_u_8(quality, serializer);
+        sse_encode_opt_box_autoadd_filter_type(samplingFilter, serializer);
+        sse_encode_opt_box_autoadd_u_8(speed, serializer);
+        pdeCallFfi(generalizedFrbRustBinding, serializer,
+            funcId: 2, port: port_);
+      },
+      codec: SseCodec(
+        decodeSuccessData: sse_decode_list_prim_u_8_strict,
+        decodeErrorData: sse_decode_AnyhowException,
+      ),
+      constMeta: kCrateApiCompressImageCompressContainFromBytesConstMeta,
+      argValues: [
+        bytes,
+        compressFormat,
+        maxWidth,
+        maxHeight,
+        quality,
+        samplingFilter,
+        speed
+      ],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiCompressImageCompressContainFromBytesConstMeta =>
+      const TaskConstMeta(
+        debugName: "image_compress_contain_from_bytes",
+        argNames: [
+          "bytes",
+          "compressFormat",
+          "maxWidth",
+          "maxHeight",
+          "quality",
+          "samplingFilter",
+          "speed"
+        ],
+      );
+
+  @override
+  Future<Uint8List> crateApiCompressImageCompressContainFromFilepath(
+      {required String filePath,
+      CompressFormat? compressFormat,
+      int? maxWidth,
+      int? maxHeight,
+      int? quality,
+      FilterType? samplingFilter,
+      int? speed}) {
+    return handler.executeNormal(NormalTask(
+      callFfi: (port_) {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_String(filePath, serializer);
+        sse_encode_opt_box_autoadd_compress_format(compressFormat, serializer);
+        sse_encode_opt_box_autoadd_i_32(maxWidth, serializer);
+        sse_encode_opt_box_autoadd_i_32(maxHeight, serializer);
+        sse_encode_opt_box_autoadd_u_8(quality, serializer);
+        sse_encode_opt_box_autoadd_filter_type(samplingFilter, serializer);
+        sse_encode_opt_box_autoadd_u_8(speed, serializer);
+        pdeCallFfi(generalizedFrbRustBinding, serializer,
+            funcId: 3, port: port_);
+      },
+      codec: SseCodec(
+        decodeSuccessData: sse_decode_list_prim_u_8_strict,
+        decodeErrorData: sse_decode_AnyhowException,
+      ),
+      constMeta: kCrateApiCompressImageCompressContainFromFilepathConstMeta,
+      argValues: [
+        filePath,
+        compressFormat,
+        maxWidth,
+        maxHeight,
+        quality,
+        samplingFilter,
+        speed
+      ],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta
+      get kCrateApiCompressImageCompressContainFromFilepathConstMeta =>
+          const TaskConstMeta(
+            debugName: "image_compress_contain_from_filepath",
+            argNames: [
+              "filePath",
+              "compressFormat",
+              "maxWidth",
+              "maxHeight",
+              "quality",
+              "samplingFilter",
+              "speed"
+            ],
+          );
+
+  @override
   Future<Uint8List> crateApiCompressImageCompressFitHeight(
       {required String filePath,
       CompressFormat? compressFormat,
@@ -186,7 +345,7 @@ class NativeImageCompressApiImpl extends NativeImageCompressApiImplPlatform
         sse_encode_opt_box_autoadd_filter_type(samplingFilter, serializer);
         sse_encode_opt_box_autoadd_u_8(speed, serializer);
         pdeCallFfi(generalizedFrbRustBinding, serializer,
-            funcId: 2, port: port_);
+            funcId: 4, port: port_);
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_list_prim_u_8_strict,
@@ -219,6 +378,107 @@ class NativeImageCompressApiImpl extends NativeImageCompressApiImplPlatform
       );
 
   @override
+  Future<Uint8List> crateApiCompressImageCompressFitHeightFromBytes(
+      {required List<int> bytes,
+      CompressFormat? compressFormat,
+      int? maxHeight,
+      int? quality,
+      FilterType? samplingFilter,
+      int? speed}) {
+    return handler.executeNormal(NormalTask(
+      callFfi: (port_) {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_list_prim_u_8_loose(bytes, serializer);
+        sse_encode_opt_box_autoadd_compress_format(compressFormat, serializer);
+        sse_encode_opt_box_autoadd_i_32(maxHeight, serializer);
+        sse_encode_opt_box_autoadd_u_8(quality, serializer);
+        sse_encode_opt_box_autoadd_filter_type(samplingFilter, serializer);
+        sse_encode_opt_box_autoadd_u_8(speed, serializer);
+        pdeCallFfi(generalizedFrbRustBinding, serializer,
+            funcId: 5, port: port_);
+      },
+      codec: SseCodec(
+        decodeSuccessData: sse_decode_list_prim_u_8_strict,
+        decodeErrorData: sse_decode_AnyhowException,
+      ),
+      constMeta: kCrateApiCompressImageCompressFitHeightFromBytesConstMeta,
+      argValues: [
+        bytes,
+        compressFormat,
+        maxHeight,
+        quality,
+        samplingFilter,
+        speed
+      ],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiCompressImageCompressFitHeightFromBytesConstMeta =>
+      const TaskConstMeta(
+        debugName: "image_compress_fit_height_from_bytes",
+        argNames: [
+          "bytes",
+          "compressFormat",
+          "maxHeight",
+          "quality",
+          "samplingFilter",
+          "speed"
+        ],
+      );
+
+  @override
+  Future<Uint8List> crateApiCompressImageCompressFitHeightFromFilepath(
+      {required String filePath,
+      CompressFormat? compressFormat,
+      int? maxHeight,
+      int? quality,
+      FilterType? samplingFilter,
+      int? speed}) {
+    return handler.executeNormal(NormalTask(
+      callFfi: (port_) {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_String(filePath, serializer);
+        sse_encode_opt_box_autoadd_compress_format(compressFormat, serializer);
+        sse_encode_opt_box_autoadd_i_32(maxHeight, serializer);
+        sse_encode_opt_box_autoadd_u_8(quality, serializer);
+        sse_encode_opt_box_autoadd_filter_type(samplingFilter, serializer);
+        sse_encode_opt_box_autoadd_u_8(speed, serializer);
+        pdeCallFfi(generalizedFrbRustBinding, serializer,
+            funcId: 6, port: port_);
+      },
+      codec: SseCodec(
+        decodeSuccessData: sse_decode_list_prim_u_8_strict,
+        decodeErrorData: sse_decode_AnyhowException,
+      ),
+      constMeta: kCrateApiCompressImageCompressFitHeightFromFilepathConstMeta,
+      argValues: [
+        filePath,
+        compressFormat,
+        maxHeight,
+        quality,
+        samplingFilter,
+        speed
+      ],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta
+      get kCrateApiCompressImageCompressFitHeightFromFilepathConstMeta =>
+          const TaskConstMeta(
+            debugName: "image_compress_fit_height_from_filepath",
+            argNames: [
+              "filePath",
+              "compressFormat",
+              "maxHeight",
+              "quality",
+              "samplingFilter",
+              "speed"
+            ],
+          );
+
+  @override
   Future<Uint8List> crateApiCompressImageCompressFitWidth(
       {required String filePath,
       CompressFormat? compressFormat,
@@ -236,7 +496,7 @@ class NativeImageCompressApiImpl extends NativeImageCompressApiImplPlatform
         sse_encode_opt_box_autoadd_filter_type(samplingFilter, serializer);
         sse_encode_opt_box_autoadd_u_8(speed, serializer);
         pdeCallFfi(generalizedFrbRustBinding, serializer,
-            funcId: 3, port: port_);
+            funcId: 7, port: port_);
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_list_prim_u_8_strict,
@@ -267,6 +527,107 @@ class NativeImageCompressApiImpl extends NativeImageCompressApiImplPlatform
           "speed"
         ],
       );
+
+  @override
+  Future<Uint8List> crateApiCompressImageCompressFitWidthFromBytes(
+      {required List<int> bytes,
+      CompressFormat? compressFormat,
+      int? maxWidth,
+      int? quality,
+      FilterType? samplingFilter,
+      int? speed}) {
+    return handler.executeNormal(NormalTask(
+      callFfi: (port_) {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_list_prim_u_8_loose(bytes, serializer);
+        sse_encode_opt_box_autoadd_compress_format(compressFormat, serializer);
+        sse_encode_opt_box_autoadd_i_32(maxWidth, serializer);
+        sse_encode_opt_box_autoadd_u_8(quality, serializer);
+        sse_encode_opt_box_autoadd_filter_type(samplingFilter, serializer);
+        sse_encode_opt_box_autoadd_u_8(speed, serializer);
+        pdeCallFfi(generalizedFrbRustBinding, serializer,
+            funcId: 8, port: port_);
+      },
+      codec: SseCodec(
+        decodeSuccessData: sse_decode_list_prim_u_8_strict,
+        decodeErrorData: sse_decode_AnyhowException,
+      ),
+      constMeta: kCrateApiCompressImageCompressFitWidthFromBytesConstMeta,
+      argValues: [
+        bytes,
+        compressFormat,
+        maxWidth,
+        quality,
+        samplingFilter,
+        speed
+      ],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta get kCrateApiCompressImageCompressFitWidthFromBytesConstMeta =>
+      const TaskConstMeta(
+        debugName: "image_compress_fit_width_from_bytes",
+        argNames: [
+          "bytes",
+          "compressFormat",
+          "maxWidth",
+          "quality",
+          "samplingFilter",
+          "speed"
+        ],
+      );
+
+  @override
+  Future<Uint8List> crateApiCompressImageCompressFitWidthFromFilepath(
+      {required String filePath,
+      CompressFormat? compressFormat,
+      int? maxWidth,
+      int? quality,
+      FilterType? samplingFilter,
+      int? speed}) {
+    return handler.executeNormal(NormalTask(
+      callFfi: (port_) {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_String(filePath, serializer);
+        sse_encode_opt_box_autoadd_compress_format(compressFormat, serializer);
+        sse_encode_opt_box_autoadd_i_32(maxWidth, serializer);
+        sse_encode_opt_box_autoadd_u_8(quality, serializer);
+        sse_encode_opt_box_autoadd_filter_type(samplingFilter, serializer);
+        sse_encode_opt_box_autoadd_u_8(speed, serializer);
+        pdeCallFfi(generalizedFrbRustBinding, serializer,
+            funcId: 9, port: port_);
+      },
+      codec: SseCodec(
+        decodeSuccessData: sse_decode_list_prim_u_8_strict,
+        decodeErrorData: sse_decode_AnyhowException,
+      ),
+      constMeta: kCrateApiCompressImageCompressFitWidthFromFilepathConstMeta,
+      argValues: [
+        filePath,
+        compressFormat,
+        maxWidth,
+        quality,
+        samplingFilter,
+        speed
+      ],
+      apiImpl: this,
+    ));
+  }
+
+  TaskConstMeta
+      get kCrateApiCompressImageCompressFitWidthFromFilepathConstMeta =>
+          const TaskConstMeta(
+            debugName: "image_compress_fit_width_from_filepath",
+            argNames: [
+              "filePath",
+              "compressFormat",
+              "maxWidth",
+              "quality",
+              "samplingFilter",
+              "speed"
+            ],
+          );
 
   @protected
   AnyhowException dco_decode_AnyhowException(dynamic raw) {
@@ -329,6 +690,12 @@ class NativeImageCompressApiImpl extends NativeImageCompressApiImplPlatform
     if (arr.isNotEmpty)
       throw Exception('unexpected arr length: expect 0 but see ${arr.length}');
     return const ImageCompress();
+  }
+
+  @protected
+  List<int> dco_decode_list_prim_u_8_loose(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw as List<int>;
   }
 
   @protected
@@ -430,6 +797,13 @@ class NativeImageCompressApiImpl extends NativeImageCompressApiImplPlatform
   ImageCompress sse_decode_image_compress(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     return const ImageCompress();
+  }
+
+  @protected
+  List<int> sse_decode_list_prim_u_8_loose(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var len_ = sse_decode_i_32(deserializer);
+    return deserializer.buffer.getUint8List(len_);
   }
 
   @protected
@@ -558,6 +932,15 @@ class NativeImageCompressApiImpl extends NativeImageCompressApiImplPlatform
   @protected
   void sse_encode_image_compress(ImageCompress self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
+  }
+
+  @protected
+  void sse_encode_list_prim_u_8_loose(
+      List<int> self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.length, serializer);
+    serializer.buffer
+        .putUint8List(self is Uint8List ? self : Uint8List.fromList(self));
   }
 
   @protected
