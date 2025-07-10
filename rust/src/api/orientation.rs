@@ -1,6 +1,7 @@
 use exif::{Exif, In, Tag};
 use image::{imageops, DynamicImage};
 
+#[inline]
 pub(crate) fn check_from_filepath(path_str: &str) -> anyhow::Result<u32> {
     let file = std::fs::File::open(path_str)?;
     let mut buf_reader = std::io::BufReader::new(&file);
@@ -46,6 +47,7 @@ pub(crate) fn check_from_filepath(path_str: &str) -> anyhow::Result<u32> {
 /*
     https://magnushoff.com/articles/jpeg-orientation/
 */
+#[inline]
 pub(crate) fn rotate(orientation: u32, dyn_img: DynamicImage) -> DynamicImage {
     match orientation {
         // filp Horizontally

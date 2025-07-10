@@ -8,18 +8,23 @@ crate-type = ["cdylib", "staticlib"]
 
 [dependencies]
 anyhow = "1.0.98"
-flutter_rust_bridge = "=2.10.0"
-image = "0.25.6"
+flutter_rust_bridge = "=2.11.1"
+image = { version = "0.25.6", features = ["jpeg", "webp", "avif", "png"], default-features = false }
 kamadak-exif = "0.6.1"
+rayon = "1.10"
 
 [profile.dev]
-lto = true
+lto = "thin"
 panic = "abort"
-opt-level = "z"
+opt-level = 3
 strip = "debuginfo"
+codegen-units = 1
+overflow-checks = false
 
 [profile.release]
-lto = true
+lto = "fat"
 panic = "abort"
-opt-level = "z"
-strip = "debuginfo"
+opt-level = 3
+strip = "symbols"
+codegen-units = 1
+overflow-checks = false
