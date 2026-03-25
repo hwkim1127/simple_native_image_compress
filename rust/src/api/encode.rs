@@ -53,7 +53,11 @@ pub(crate) fn dyn_img_to_bytes(
         }
         _ => {
             let encoder = JpegEncoder::new_with_quality(&mut bytes, quality);
-            dyn_img.to_rgb8().write_with_encoder(encoder)?;
+            if let Some(rgb) = dyn_img.as_rgb8() {
+                rgb.write_with_encoder(encoder)?;
+            } else {
+                dyn_img.to_rgb8().write_with_encoder(encoder)?;
+            }
         }
     }
     return Ok(bytes);

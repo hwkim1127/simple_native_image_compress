@@ -54,15 +54,15 @@ pub(crate) fn rotate(orientation: u32, dyn_img: DynamicImage) -> DynamicImage {
         3 => return DynamicImage::ImageRgba8(imageops::rotate180(&dyn_img)),
         // rotate 90 & filp Horizontally
         5 => {
-            let temp_img = DynamicImage::ImageRgba8(imageops::rotate90(&dyn_img));
-            return DynamicImage::ImageRgba8(imageops::flip_horizontal(&temp_img));
+            let rotated = imageops::rotate90(&dyn_img);
+            return DynamicImage::ImageRgba8(imageops::flip_horizontal(&rotated));
         }
         // rotate90
         6 => return DynamicImage::ImageRgba8(imageops::rotate90(&dyn_img)),
         // filp Horizontally & rotate 270
         7 => {
-            let temp_img = DynamicImage::ImageRgba8(imageops::flip_horizontal(&dyn_img));
-            return DynamicImage::ImageRgba8(imageops::rotate270(&temp_img));
+            let flipped = imageops::flip_horizontal(&dyn_img);
+            return DynamicImage::ImageRgba8(imageops::rotate270(&flipped));
         }
         // rotate 270
         8 => return DynamicImage::ImageRgba8(imageops::rotate270(&dyn_img)),

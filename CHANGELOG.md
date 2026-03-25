@@ -1,3 +1,6 @@
+## 3.0.3
+
+
 ## 3.0.2
 * **FEAT**: Updated the `cargokit` dependency.
 * **DEPRECATED**: Deprecated `contain`, `fitWidth`, and `fitHeight` in favor of `containFromFilePath`, `fitWidthFromFilePath`, and `fitHeightFromFilePath`.

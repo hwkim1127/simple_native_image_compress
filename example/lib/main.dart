@@ -57,6 +57,7 @@ class _MyAppState extends State<MyApp> {
         _duration = endTime.difference(startTime);
       });
     } catch (e) {
+      print(e);
       if (!mounted) return;
       showDialog<void>(
         context: context,

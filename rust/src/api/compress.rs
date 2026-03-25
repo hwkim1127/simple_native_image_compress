@@ -124,20 +124,20 @@ impl ImageCompress {
         sampling_filter: Option<constants::FilterType>,
         speed: Option<u8>,
     ) -> Result<Vec<u8>, anyhow::Error> {
-        let dyn_img = ImageReader::new(Cursor::new(bytes.clone())).with_guessed_format()?.decode()?;
+        let dyn_img = ImageReader::new(Cursor::new(bytes)).with_guessed_format()?.decode()?;
         // let orientation = orientation::check_from_bytes(bytes)?;
         // dyn_img = orientation::rotate(orientation, dyn_img);
-    
+
         let compress_format = compress_format.unwrap_or(CompressFormat::Jpeg);
         let quality = quality.unwrap_or(80);
         let sampling_filter = sampling_filter.unwrap_or(constants::FilterType::Triangle);
-    
+
         let (img_width, img_height) = dyn_img.dimensions();
         let max_width = max_width.unwrap_or(1024);
-    
+
         let ratio_x: f64 = max_width as f64 / img_width as f64;
         let scale: f64 = ratio_x;
-    
+
         return Ok(compress(
             &dyn_img,
             img_height,
@@ -229,20 +229,20 @@ impl ImageCompress {
         sampling_filter: Option<constants::FilterType>,
         speed: Option<u8>,
     ) -> Result<Vec<u8>, anyhow::Error> {
-        let dyn_img = ImageReader::new(Cursor::new(bytes.clone())).with_guessed_format()?.decode()?;
+        let dyn_img = ImageReader::new(Cursor::new(bytes)).with_guessed_format()?.decode()?;
         // let orientation = orientation::check_from_bytes(bytes)?;
         // dyn_img = orientation::rotate(orientation, dyn_img);
-    
+
         let compress_format = compress_format.unwrap_or(CompressFormat::Jpeg);
         let quality = quality.unwrap_or(80);
         let sampling_filter = sampling_filter.unwrap_or(constants::FilterType::Triangle);
-    
+
         let (img_width, img_height) = dyn_img.dimensions();
         let max_height = max_height.unwrap_or(1024);
-    
+
         let ratio_y: f64 = max_height as f64 / img_height as f64;
         let scale: f64 = ratio_y;
-    
+
         let res = compress(
             &dyn_img,
             img_height,
@@ -346,14 +346,14 @@ impl ImageCompress {
         sampling_filter: Option<constants::FilterType>,
         speed: Option<u8>,
     ) -> Result<Vec<u8>, anyhow::Error>{
-        let dyn_img = ImageReader::new(Cursor::new(bytes.clone())).with_guessed_format()?.decode()?;
+        let dyn_img = ImageReader::new(Cursor::new(bytes)).with_guessed_format()?.decode()?;
         // let orientation = orientation::check_from_bytes(bytes)?;
         // dyn_img = orientation::rotate(orientation, dyn_img);
-    
+
         let compress_format = compress_format.unwrap_or(CompressFormat::Jpeg);
         let quality = quality.unwrap_or(80);
         let sampling_filter = sampling_filter.unwrap_or(constants::FilterType::Triangle);
-    
+
         let (img_width, img_height) = dyn_img.dimensions();
         let max_width = max_width.unwrap_or(1024);
         let max_height = max_height.unwrap_or(1024);
