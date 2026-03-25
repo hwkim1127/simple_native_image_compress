@@ -1,5 +1,9 @@
 ## 3.0.3
-
+* **FIX**: Support Android 16 KB page size. (thanks to [@hukusuke1007](https://github.com/hukusuke1007))
+* **FIX**: Example code fixes. (thanks to [@hukusuke1007](https://github.com/hukusuke1007))
+* **PERF**: Avoid redundant byte buffer clone in `*FromBytes` methods.
+* **PERF**: Eliminate unnecessary intermediate image allocation during EXIF orientation correction.
+* **PERF**: Avoid redundant RGB conversion in JPEG encoding path.
 
 ## 3.0.2
 * **FEAT**: Updated the `cargokit` dependency.
